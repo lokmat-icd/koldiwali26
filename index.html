@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lokmat - Advertisement Dashboard</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1117; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #e6edf3; min-height: 100vh; }
+  .container-fluid { max-width: 1400px; margin: 0 auto; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: #161b22; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #58a6ff; }
+
+  /* LOGIN */
+  #loginOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+  #loginOverlay .login-box { background: #161b22; padding: 45px 50px 50px; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.7); max-width: 420px; width: 100%; border: 1px solid #30363d; }
+  #loginOverlay .login-box .logo { text-align: center; margin-bottom: 25px; }
+  #loginOverlay .login-box .logo img { width: 60%; height: auto; max-height: 80px; object-fit: contain; border-radius: 12px; display: block; margin: 0 auto; }
+  #loginOverlay .login-box .logo h3 { color: #58a6ff; margin-top: 15px; margin-bottom: 5px; font-weight: 600; font-size: 20px; }
+  #loginOverlay .login-box .logo p.sub { color: #8b949e; font-size: 13px; margin: 0; }
+  #loginOverlay .login-box .form-group { margin-bottom: 18px; }
+  #loginOverlay .login-box .form-group label { font-weight: 600; font-size: 13px; color: #8b949e; display: block; margin-bottom: 5px; }
+  #loginOverlay .login-box .form-group input { border-radius: 8px; border: 1px solid #30363d; background: #0d1117; color: #e6edf3; padding: 10px 14px; font-size: 14px; width: 100%; transition: all 0.3s; }
+  #loginOverlay .login-box .form-group input:focus { outline: none; border-color: #58a6ff; box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2); }
+  #loginOverlay .login-box .login-btn { width: 100%; padding: 12px; border: none; border-radius: 8px; background: #238636; color: white; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s; margin-top: 5px; }
+  #loginOverlay .login-box .login-btn:hover { background: #2ea043; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(35, 134, 54, 0.4); }
+  #loginOverlay .login-box .login-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  #loginOverlay .login-box .login-error { color: #f85149; font-size: 13px; text-align: center; margin-top: 12px; display: none; }
+  #loginOverlay .login-box .login-error.show { display: block; }
+
+  /* HEADER */
+  .header { background: #161b22; color: #e6edf3; padding: 12px 22px; border-radius: 12px; margin-bottom: 0; border: 1px solid #30363d; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+  .header-row1 { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 15px; min-height: 48px; }
+  .header-left { display: flex; align-items: center; flex-shrink: 0; }
+  .header-logo { width: 150px; height: auto; max-height: 60px; object-fit: contain; display: block; border-radius: 18px; }
+  .header-stats { display: flex; align-items: center; gap: 8px 14px; flex-wrap: wrap; flex: 1; justify-content: center; }
+  .header-stats .stat-chip { display: inline-flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.05); padding: 3px 14px 3px 10px; border-radius: 18px; font-size: 12px; font-weight: 500; border: 1px solid rgba(255,255,255,0.06); color: #e6edf3; }
+  .header-stats .stat-chip .stat-label { opacity: 0.7; font-weight: 400; font-size: 11px; color: #8b949e; }
+  .header-stats .stat-chip .stat-value { font-weight: 700; font-size: 14px; color: #58a6ff; }
+  .header-stats .stat-divider { color: #30363d; font-size: 14px; font-weight: 100; }
+  .header-user { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05); padding: 4px 12px 4px 16px; border-radius: 30px; flex-shrink: 0; border: 1px solid #30363d; }
+  .header-user .user-name { font-size: 13px; font-weight: 500; color: #e6edf3; }
+  .header-user .user-role { font-size: 10px; opacity: 0.6; color: #8b949e; }
+  .header-user .logout-header-btn { background: rgba(255,255,255,0.06); border: none; color: #8b949e; padding: 3px 12px; border-radius: 20px; font-size: 11px; cursor: pointer; transition: all 0.2s; }
+  .header-user .logout-header-btn:hover { background: rgba(255,255,255,0.12); color: #e6edf3; }
+
+  /* TABS */
+  .tabs-container { background: #161b22; border-radius: 10px 10px 0 0; border: 1px solid #30363d; border-bottom: none; overflow: hidden; margin-top: 0; }
+  .tabs { display: flex; border-bottom: 2px solid #30363d; background: #0d1117; flex-wrap: wrap; }
+  .tab-btn { padding: 12px 28px; border: none; background: transparent; font-size: 14px; font-weight: 600; color: #8b949e; cursor: pointer; transition: all 0.3s; position: relative; border-bottom: 3px solid transparent; }
+  .tab-btn:hover { color: #58a6ff; background: rgba(88, 166, 255, 0.06); }
+  .tab-btn.active { color: #58a6ff; border-bottom-color: #58a6ff; background: #161b22; }
+  .tab-btn i { margin-right: 8px; }
+  .tab-content { display: none; padding: 20px; background: #161b22; border: 1px solid #30363d; border-top: none; border-radius: 0 0 10px 10px; }
+  .tab-content.active { display: block; }
+
+  /* FILTERS */
+  .filters-section { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 10px 16px; background: #0d1117; border-radius: 10px; border: 1px solid #30363d; margin-bottom: 16px; position: relative; }
+  .filter-group { display: flex; align-items: center; gap: 3px; flex-wrap: wrap; }
+  .filter-group label { font-weight: 600; font-size: 10px; color: #8b949e; margin: 0; white-space: nowrap; }
+  .filter-group select { padding: 3px 6px; border-radius: 4px; border: 1px solid #30363d; background: #0d1117; color: #e6edf3; font-size: 11px; min-width: 80px; max-width: 130px; height: 28px; }
+  .filter-group select:focus { outline: none; border-color: #58a6ff; box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2); }
+  .filter-group select option { background: #161b22; color: #e6edf3; }
+  .filter-group select[disabled] { background: #161b22; color: #58a6ff; opacity: 1; cursor: default; font-weight: 600; }
+  .filter-group .gear-btn { background: rgba(88, 166, 255, 0.12); border: 1px solid #30363d; color: #58a6ff; width: 26px; height: 28px; border-radius: 4px; cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .filter-group .gear-btn:hover { background: rgba(88, 166, 255, 0.25); }
+  .filter-divider { color: #30363d; font-size: 14px; font-weight: 100; padding: 0 2px; }
+  .fab-container { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+  .fab-btn { width: 38px; height: 38px; border-radius: 50%; background: #238636; color: white; border: none; font-size: 20px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(35, 134, 54, 0.4); }
+  .fab-btn:hover { background: #2ea043; transform: scale(1.1) rotate(90deg); box-shadow: 0 6px 25px rgba(35, 134, 54, 0.6); }
+  .fab-btn:active { transform: scale(0.95); }
+  .fab-btn.hidden { display: none; }
+
+  .stats-bar { background: #0d1117; border-radius: 10px; border: 1px solid #30363d; margin-bottom: 16px; overflow: hidden; }
+  .stats-bar .stats-row { display: flex; flex-wrap: wrap; align-items: center; padding: 8px 18px; gap: 6px 16px; }
+  .stats-bar .stats-row.stats-main { background: #0d1117; border-bottom: 1px solid #30363d; }
+  .stats-bar .stat-item { font-size: 13px; color: #8b949e; white-space: nowrap; }
+  .stats-bar .stat-item strong { color: #58a6ff; font-size: 15px; }
+  .stats-bar .stat-divider { color: #30363d; font-size: 16px; font-weight: 100; }
+
+  /* ADS GRID */
+  .ads-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 16px; padding: 0; }
+  .ad-card { background: #161b22; border-radius: 10px; overflow: hidden; transition: all 0.3s ease; border: 1px solid #30363d; display: flex; flex-direction: column; border-left-width: 5px; }
+  .ad-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.6); transform: translateY(-3px); border-color: #58a6ff; }
+  .card-header { padding: 10px 14px 8px; border-bottom: 1px solid #30363d; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px; background: #0d1117; }
+  .card-header .file-name { font-size: 15px; font-weight: 600; color: #58a6ff; }
+  .card-header .badge-group { display: flex; gap: 4px; flex-wrap: wrap; }
+  .card-header .desk-badge { font-size: 9px; padding: 2px 8px; border-radius: 20px; font-weight: 600; background: #1a3a6b; color: white; }
+  .card-header .icd-badge { font-size: 9px; padding: 2px 8px; border-radius: 20px; font-weight: 600; background: #c79306; color: white; }
+  .card-header .region-badge { font-size: 9px; padding: 2px 8px; border-radius: 20px; font-weight: 600; background: #6f42c1; color: white; }
+
+  .card-body { padding: 8px 14px 10px; flex: 1; }
+  .card-body .row { display: flex; flex-wrap: wrap; margin-bottom: 1px; line-height: 1.4; }
+  .card-body .row .col { display: flex; align-items: baseline; flex: 1; min-width: 45%; padding: 1px 4px 1px 0; }
+  .card-body .label { font-size: 9.5pt; font-weight: 600; color: #8b949e; min-width: 60px; flex-shrink: 0; text-align: left; }
+  .card-body .value { font-size: 9.2pt; color: #e6edf3; word-break: break-word; text-align: left; }
+  .card-body .value.highlight { color: #58a6ff; font-weight: 600; }
+  .card-body .value.boolean-yes { color: #3fb950; }
+  .card-body .value.boolean-no { color: #f85149; }
+
+  .card-actions { padding: 8px 14px 10px; border-top: 1px solid #30363d; display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; background: #0d1117; }
+  .card-actions .btn-action { padding: 4px 16px; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+  .card-actions .btn-edit { background: #238636; color: white; }
+  .card-actions .btn-edit:hover { background: #2ea043; transform: scale(1.02); }
+
+  .no-results { text-align: center; padding: 40px 20px; color: #8b949e; background: #161b22; border-radius: 12px; grid-column: 1 / -1; border: 1px solid #30363d; }
+  .no-results i { font-size: 36px; opacity: 0.3; display: block; margin-bottom: 12px; }
+  .loading-spinner { text-align: center; padding: 50px 20px; color: #8b949e; grid-column: 1 / -1; }
+  .loading-spinner i { font-size: 28px; margin-bottom: 10px; display: block; color: #58a6ff; }
+
+  /* MODAL */
+  .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+  .modal-overlay.show { display: flex; }
+  .modal-overlay .modal-box { background: #161b22; border-radius: 12px; max-width: 1100px; width: 95%; max-height: 92vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.8); animation: modalSlideIn 0.3s ease; border: 1px solid #30363d; }
+  @keyframes modalSlideIn { from { transform: translateY(-30px) scale(0.95); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+  .modal-overlay .modal-header { padding: 16px 24px; background: linear-gradient(135deg, #0d1117 0%, #1a3a6b 100%); color: white; border-radius: 12px 12px 0 0; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1; border-bottom: 1px solid #30363d; }
+  .modal-overlay .modal-header h4 { margin: 0; font-weight: 600; font-size: 18px; color: #58a6ff; }
+  .modal-overlay .modal-header h4 i { margin-right: 10px; }
+  .modal-overlay .modal-header .close-btn { background: rgba(255,255,255,0.08); border: 1px solid #30363d; color: #8b949e; width: 34px; height: 34px; border-radius: 50%; font-size: 20px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
+  .modal-overlay .modal-header .close-btn:hover { background: rgba(255,255,255,0.15); color: #e6edf3; transform: rotate(90deg); border-color: #58a6ff; }
+  .modal-overlay .modal-body { padding: 24px 28px; color: #e6edf3; background: #0d1117; }
+  .modal-overlay .modal-footer { padding: 12px 24px 20px; display: flex; justify-content: flex-end; gap: 12px; border-top: 1px solid #30363d; background: #0d1117; border-radius: 0 0 12px 12px; }
+  .modal-overlay .modal-footer .btn { padding: 8px 28px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; border: none; }
+  .modal-overlay .modal-footer .btn-cancel { background: #21262d; color: #8b949e; }
+  .modal-overlay .modal-footer .btn-cancel:hover { background: #30363d; color: #e6edf3; }
+  .modal-overlay .modal-footer .btn-save { background: #238636; color: white; }
+  .modal-overlay .modal-footer .btn-save:hover { background: #2ea043; transform: translateY(-1px); }
+  .modal-overlay .modal-footer .btn-save:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  .modal-overlay input, .modal-overlay select, .modal-overlay textarea { background: #0d1117 !important; color: #e6edf3 !important; border: 1px solid #30363d !important; border-radius: 6px !important; padding: 8px 12px !important; font-size: 13px !important; font-family: inherit !important; box-shadow: none !important; width: 100% !important; height: auto !important; }
+  .modal-overlay input:focus, .modal-overlay select:focus { border-color: #58a6ff !important; box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15) !important; outline: none !important; }
+  .modal-overlay input:disabled, .modal-overlay select:disabled { background: #161b22 !important; color: #484f58 !important; cursor: not-allowed !important; opacity: 0.7 !important; }
+  .modal-overlay .calculated-field { background: #161b22 !important; color: #58a6ff !important; font-weight: 600 !important; }
+
+  .flatpickr-calendar { background: #161b22 !important; border: 1px solid #30363d !important; box-shadow: 0 8px 30px rgba(0,0,0,0.8) !important; }
+  .flatpickr-calendar .flatpickr-months { background: #0d1117 !important; border-bottom: 1px solid #30363d !important; }
+  .flatpickr-calendar .flatpickr-months .flatpickr-month { color: #e6edf3 !important; }
+  .flatpickr-calendar .flatpickr-months .flatpickr-prev-month, .flatpickr-calendar .flatpickr-months .flatpickr-next-month { color: #8b949e !important; }
+  .flatpickr-calendar .flatpickr-weekday { color: #8b949e !important; }
+  .flatpickr-calendar .flatpickr-day { color: #e6edf3 !important; border-color: #30363d !important; }
+  .flatpickr-calendar .flatpickr-day:hover { background: #30363d !important; border-color: #58a6ff !important; }
+  .flatpickr-calendar .flatpickr-day.selected { background: #238636 !important; border-color: #238636 !important; }
+  .flatpickr-calendar .flatpickr-day.today { border-color: #58a6ff !important; }
+
+  .ad-edit-form { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px 20px; }
+  .ad-edit-form .form-group { display: flex; flex-direction: column; gap: 4px; }
+  .ad-edit-form .form-group label { font-size: 12px; font-weight: 500; color: #8b949e; letter-spacing: 0.3px; }
+  .ad-edit-form .form-group label .required-star { color: #f85149; margin-left: 2px; }
+  .ad-edit-form .form-group .field-hint { font-size: 10px; color: #484f58; margin-top: 2px; font-style: italic; }
+  .ad-edit-form .form-group .field-hint i { margin-right: 4px; color: #8b949e; }
+
+  /* STATISTICS */
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 0; }
+  .stats-card { background: #161b22; border-radius: 10px; overflow: hidden; border: 1px solid #30363d; }
+  .stats-card .stats-card-header { padding: 12px 16px; border-bottom: 1px solid #30363d; background: #0d1117; font-weight: 600; font-size: 14px; color: #58a6ff; }
+  .stats-card .stats-card-header i { margin-right: 8px; }
+  .stats-card .stats-card-body { padding: 12px 16px; max-height: 400px; overflow-y: auto; }
+  .stats-card .stats-card-body .stat-row { display: flex; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); gap: 8px; }
+  .stats-card .stats-card-body .stat-row:last-child { border-bottom: none; }
+  .stats-card .stats-card-body .stat-row .rank { font-size: 11px; color: #8b949e; min-width: 24px; font-weight: 600; }
+  .stats-card .stats-card-body .stat-row .name { font-size: 12px; color: #e6edf3; flex: 1; min-width: 80px; }
+  .stats-card .stats-card-body .stat-row .count { font-size: 11px; color: #8b949e; min-width: 40px; text-align: right; }
+  .stats-card .stats-card-body .stat-row .amount { font-size: 12px; color: #58a6ff; font-weight: 600; min-width: 80px; text-align: right; }
+  .stats-card .stats-card-body .stat-row .bar-container { flex: 1; min-width: 60px; background: #0d1117; border-radius: 4px; height: 8px; overflow: hidden; }
+  .stats-card .stats-card-body .stat-row .bar-container .bar { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+  .stats-card .stats-card-body .stat-row .percent { font-size: 11px; color: #8b949e; min-width: 40px; text-align: right; }
+  .stats-card .stats-card-footer { padding: 10px 16px; border-top: 1px solid #30363d; background: #0d1117; display: flex; justify-content: space-between; font-size: 12px; color: #8b949e; }
+  .stats-card .stats-card-footer strong { color: #58a6ff; }
+
+  .graph-card { background: #161b22; border-radius: 10px; overflow: hidden; border: 1px solid #30363d; margin-bottom: 20px; }
+  .graph-card .graph-card-header { padding: 12px 16px; border-bottom: 1px solid #30363d; background: #0d1117; font-weight: 600; font-size: 14px; color: #58a6ff; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .graph-card .graph-card-header i { margin-right: 8px; }
+  .graph-card .graph-card-body { padding: 16px; position: relative; }
+  .graph-card .graph-card-body canvas { width: 100% !important; max-height: 250px; }
+  .graph-card .graph-card-footer { padding: 10px 16px; border-top: 1px solid #30363d; background: #0d1117; display: flex; justify-content: space-between; font-size: 12px; color: #8b949e; flex-wrap: wrap; gap: 8px; }
+  .graph-card .graph-card-footer strong { color: #58a6ff; }
+  .graph-container { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 16px; }
+  .graph-container .graph-card { margin-bottom: 0; }
+
+  /* Toast */
+  .toast { position: fixed; top: 20px; right: 20px; padding: 12px 20px; border-radius: 8px; color: white; font-size: 14px; font-weight: 500; z-index: 99999; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transform: translateX(120%); transition: transform 0.4s ease; max-width: 400px; }
+  .toast.show { transform: translateX(0); }
+  .toast.success { background: #238636; }
+  .toast.error { background: #c62828; }
+  .toast.info { background: #1a3a6b; }
+
+  /* MANAGEMENT MODAL rows */
+  .manage-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  .manage-table th { text-align: left; font-size: 12px; color: #8b949e; padding: 8px 10px; border-bottom: 1px solid #30363d; font-weight: 600; }
+  .manage-table td { padding: 8px 10px; font-size: 13px; color: #e6edf3; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .manage-table tr:hover td { background: rgba(88, 166, 255, 0.05); }
+  .manage-table .del-btn { background: rgba(248, 81, 73, 0.15); color: #f85149; border: 1px solid rgba(248, 81, 73, 0.4); padding: 3px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; font-weight: 600; }
+  .manage-table .del-btn:hover { background: rgba(248, 81, 73, 0.3); }
+  .manage-add-row { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 10px; align-items: end; margin-top: 16px; padding-top: 16px; border-top: 1px solid #30363d; }
+  .manage-add-row .form-group { display: flex; flex-direction: column; gap: 4px; }
+  .manage-add-row .form-group label { font-size: 11px; color: #8b949e; font-weight: 600; }
+  .manage-add-row .btn-add { padding: 8px 20px; border: none; border-radius: 6px; background: #238636; color: white; font-weight: 600; cursor: pointer; font-size: 13px; }
+  .manage-add-row .btn-add:hover { background: #2ea043; }
+  .manage-add-row.cols-2 { grid-template-columns: 1fr 1fr auto; }
+
+  /* RESPONSIVE */
+  @media (max-width: 1200px) {
+    .ad-edit-form { grid-template-columns: 1fr 1fr; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .graph-container { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 992px) {
+    .filters-section { gap: 4px 8px; padding: 8px 12px; }
+    .filter-group select { min-width: 60px; max-width: 100px; font-size: 10px; }
+    .filter-group label { font-size: 9px; }
+    .modal-overlay .modal-box { width: 98%; max-width: 98%; }
+    .ad-edit-form { gap: 10px 16px; }
+    .modal-overlay .modal-body { padding: 18px 20px; }
+    .graph-container { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    .header-row1 { flex-direction: column; align-items: center; }
+    .header-stats { justify-content: center; }
+    .filters-section { flex-direction: column; align-items: stretch; padding: 12px; }
+    .filter-group { justify-content: flex-start; }
+    .filter-group select { max-width: 100%; min-width: 120px; }
+    .fab-container { margin-left: 0; justify-content: flex-end; margin-top: 4px; }
+    .ads-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .card-header { flex-direction: column; align-items: stretch; text-align: center; }
+    .card-header .badge-group { justify-content: center; }
+    .card-actions { justify-content: center; }
+    .card-body .row .col { min-width: 100%; }
+    #loginOverlay .login-box { padding: 30px 25px; margin: 15px; }
+    .modal-overlay .modal-box { margin: 10px; max-height: 95vh; width: 98%; }
+    .tabs { flex-direction: column; }
+    .tab-btn { text-align: center; border-bottom: 1px solid #30363d; }
+    .ad-edit-form { grid-template-columns: 1fr; gap: 10px; }
+    .modal-overlay .modal-body { padding: 14px 16px; }
+    .modal-overlay .modal-header { padding: 12px 16px; }
+    .modal-overlay .modal-header h4 { font-size: 16px; }
+    .stats-card .stats-card-body .stat-row .bar-container { min-width: 30px; }
+    .graph-container { grid-template-columns: 1fr; }
+    .graph-card .graph-card-body canvas { max-height: 200px; }
+    .manage-add-row { grid-template-columns: 1fr; }
+    .manage-add-row.cols-2 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginOverlay">
+  <div class="login-box">
+    <div class="logo">
+      <img src="https://lh3.googleusercontent.com/d/15dKd_n6e4B4sKUVGkmxPlsJ5LUhAZLgM" alt="LOKMAT">
+      <h3>Advertisement Dashboard</h3>
+      <p class="sub">Lokmat · Advertisement Management</p>
+    </div>
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" id="loginUsername" placeholder="Enter your name" autocomplete="username">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password">
+    </div>
+    <button class="login-btn" id="loginBtn" onclick="handleLogin()">
+      <i class="fa fa-sign-in"></i> Sign In
+    </button>
+    <div class="login-error" id="loginError">Invalid name or password. Please try again.</div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- MAIN -->
+<div class="container-fluid" id="mainContent" style="display:none;">
+
+  <div class="header">
+    <div class="header-row1">
+      <div class="header-left">
+        <img src="https://lh3.googleusercontent.com/d/15dKd_n6e4B4sKUVGkmxPlsJ5LUhAZLgM" alt="LOKMAT" class="header-logo" onerror="this.style.display='none'">
+      </div>
+      <div class="header-stats" id="headerStats"></div>
+      <div class="header-user">
+        <div>
+          <div class="user-name" id="headerUserName">User</div>
+          <div class="user-role" id="headerUserRole">Role</div>
+        </div>
+        <button class="logout-header-btn" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabs-container">
+    <div class="tabs" id="tabsContainer"></div>
+  </div>
+
+  <div id="tabContentContainer"></div>
+
+</div>
+
+<!-- AD MODAL -->
+<div class="modal-overlay" id="editAdModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h4 id="modalTitle"><i class="fa fa-edit"></i> Edit Advertisement</h4>
+      <button class="close-btn" onclick="closeEditModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="editModalBody">
+      <div class="ad-edit-form" id="adEditForm"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel" onclick="closeEditModal()">Close</button>
+      <button class="btn btn-save" id="saveAdBtn" onclick="saveAdData()">
+        <i class="fa fa-save"></i> Save Changes
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MANAGE EXECUTIVES MODAL -->
+<div class="modal-overlay" id="manageExecModal">
+  <div class="modal-box" style="max-width: 700px;">
+    <div class="modal-header">
+      <h4><i class="fa fa-users"></i> Manage Executives</h4>
+      <button class="close-btn" onclick="closeManageExecModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="manageExecBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel" onclick="closeManageExecModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- MANAGE AGENCIES MODAL -->
+<div class="modal-overlay" id="manageAgencyModal">
+  <div class="modal-box" style="max-width: 700px;">
+    <div class="modal-header">
+      <h4><i class="fa fa-building"></i> Manage Agencies</h4>
+      <button class="close-btn" onclick="closeManageAgencyModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="manageAgencyBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel" onclick="closeManageAgencyModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+// ============================================================
+// CONFIG
+// ============================================================
+const API_BASE_URL = 'https://script.google.com/macros/s/AKfycbxNkvpT46ZU-mtq_AcbXzuScZg604i_p4zMRiyhuGCAyasw9i2eGfbVYoyEOZFbfo7f/exec';
+
+const REGIONS = ['Sangli', 'Satara', 'Kolhapur', 'Kokan'];
+const DESK_OPTIONS = ['City', 'Gram'];
+const ICD_USER_OPTIONS = ['VPY','VNH','AVT','VMD','LJT','MSV','SHP','SRO','SDN','KUM','SSW','SPN','UAB'];
+const AD_COLUMNS = ['Desk','Agency/Reporter','Executive','Client','Size-Width','Size-Height','SQCM','Total_with_GST','Net_Amount','GST','Rate','To-DTP','File','ICD-User','ICD-Remark'];
+
+// Filter mapping: elementId → column name
+const FILTER_MAP = {
+  filterDesk: 'Desk',
+  filterAgency: 'Agency/Reporter',
+  filterExecutive: 'Executive',
+  filterToDTP: 'To-DTP',
+  filterFile: 'File',
+  filterICDUser: 'ICD-User',
+  filterICDRemark: 'ICD-Remark'
+};
+
+// Role permission sets
+const STATISTICS_ROLES = ['Admin','Auth-All','Auth-City','Auth-Gram'];
+const AD_EDIT_ROLES = ['Admin','Advt','ICD'];
+const EXEC_MANAGE_ROLES = ['Admin','Auth-All','Auth-City','Auth-Gram'];
+const AGENCY_MANAGE_ROLES = ['Admin','Advt','Auth-All','Auth-City','Auth-Gram'];
+const ICD_EDITABLE_FIELDS = ['To-DTP','File','ICD-User','ICD-Remark'];
+
+// ============================================================
+// GLOBAL STATE
+// ============================================================
+let loggedInUser = null;
+let currentTab = '';          // region name OR 'statistics'
+let accessibleRegions = [];    // regions user can access (from Access)
+let regionData = {};           // region → { ads, filters, agencies, executives, loaded }
+let statisticsData = null;
+let currentEditRowIndex = -1;
+let isAddMode = false;
+let currentEditRegion = '';
+let datePickerInstance = null;
+let chartInstances = {};
+
+// ============================================================
+// API CALL
+// ============================================================
+function callAPI(action, params) {
+  return new Promise(function(resolve, reject) {
+    if (!params) params = {};
+    const token = localStorage.getItem('sessionToken');
+    if (token) params.token = token;
+    if (loggedInUser && loggedInUser.username && !params.username) params.username = loggedInUser.username;
+
+    let url = API_BASE_URL + '?action=' + encodeURIComponent(action) + '&params=' + encodeURIComponent(JSON.stringify(params));
+
+    fetch(url, { method: 'GET', mode: 'cors', cache: 'no-cache' })
+      .then(function(r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function(data) {
+        if (data && data.error && typeof data.error === 'string' && data.error.indexOf('Session expired') !== -1) {
+          logout();
+          reject(new Error('Session expired'));
+          return;
+        }
+        resolve(data);
+      })
+      .catch(function(err) {
+        // JSONP fallback
+        const cb = 'jsonp_cb_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+        const timeoutId = setTimeout(function() {
+          if (window[cb]) { delete window[cb]; reject(new Error('Request timeout')); }
+        }, 15000);
+
+        window[cb] = function(data) {
+          clearTimeout(timeoutId);
+          delete window[cb];
+          if (data && data.error && typeof data.error === 'string' && data.error.indexOf('Session expired') !== -1) {
+            logout();
+            reject(new Error('Session expired'));
+            return;
+          }
+          resolve(data);
+        };
+        const s = document.createElement('script');
+        s.src = url + '&callback=' + cb;
+        s.onerror = function() { clearTimeout(timeoutId); delete window[cb]; reject(new Error('JSONP failed')); };
+        document.body.appendChild(s);
+        setTimeout(function() { if (s.parentNode) s.parentNode.removeChild(s); }, 16000);
+      });
+  });
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  const d = document.createElement('div');
+  d.textContent = String(str);
+  return d.innerHTML;
+}
+
+function formatCurrency(n) {
+  const num = Math.round(parseInt(n, 10) || 0);
+  if (num === 0) return '0';
+  const str = num.toString();
+  const last3 = str.slice(-3);
+  const rest = str.slice(0, -3);
+  return rest ? rest.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + ',' + last3 : last3;
+}
+
+function formatDateForDisplay(d) {
+  if (!d) return '';
+  d = String(d).trim();
+  if (/^\d{2}-\d{2}-\d{4}$/.test(d)) return d;
+  if (/^\d{8}$/.test(d)) return d.slice(0,2) + '-' + d.slice(2,4) + '-' + d.slice(4,8);
+  return d;
+}
+
+function formatDateForSheet(d) {
+  return formatDateForDisplay(d);
+}
+
+function getTodayFormatted() {
+  const t = new Date();
+  return String(t.getDate()).padStart(2,'0') + '-' + String(t.getMonth()+1).padStart(2,'0') + '-' + t.getFullYear();
+}
+
+function getColorFromString(str) {
+  const colors = ['#1a3a6b','#6f42c1','#c0392b','#2a9922','#c79306','#2245f2','#8e44ad','#2980b9'];
+  let hash = 0;
+  str = str || '';
+  for (let i = 0; i < str.length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  return colors[Math.abs(hash) % colors.length];
+}
+
+function showToast(msg, type) {
+  type = type || 'info';
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type + ' show';
+  clearTimeout(t._timeout);
+  t._timeout = setTimeout(function() { t.classList.remove('show'); }, 3200);
+}
+
+// ============================================================
+// ROLE HELPERS
+// ============================================================
+function isAdmin()  { return loggedInUser && loggedInUser.role === 'Admin'; }
+function isICD()    { return loggedInUser && loggedInUser.role === 'ICD'; }
+function isAdvt()   { return loggedInUser && loggedInUser.role === 'Advt'; }
+function isAuth()   { return loggedInUser && STATISTICS_ROLES.indexOf(loggedInUser.role) !== -1 && !isAdmin(); }
+function canEditAds()      { return loggedInUser && AD_EDIT_ROLES.indexOf(loggedInUser.role) !== -1; }
+function canManageExec()   { return loggedInUser && EXEC_MANAGE_ROLES.indexOf(loggedInUser.role) !== -1; }
+function canManageAgency() { return loggedInUser && AGENCY_MANAGE_ROLES.indexOf(loggedInUser.role) !== -1; }
+
+// ============================================================
+// LOGIN
+// ============================================================
+async function handleLogin() {
+  const username = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
+  const errEl = document.getElementById('loginError');
+  const btn = document.getElementById('loginBtn');
+  errEl.classList.remove('show');
+
+  if (!username || !password) {
+    errEl.textContent = 'Please enter name and password.';
+    errEl.classList.add('show');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Authenticating...';
+
+  try {
+    const result = await callAPI('authenticateUser', { username: username, password: password });
+    if (result.success && result.user) {
+      loggedInUser = result.user;
+      localStorage.setItem('sessionToken', result.user.sessionToken);
+      localStorage.setItem('username', result.user.username);
+      localStorage.setItem('userRole', result.user.role);
+      localStorage.setItem('userAccess', result.user.access);
+      localStorage.setItem('userName', result.user.name);
+
+      // Compute accessible regions
+      if (result.user.access === 'All') {
+        accessibleRegions = REGIONS.slice();
+      } else if (REGIONS.indexOf(result.user.access) !== -1) {
+        accessibleRegions = [result.user.access];
+      } else {
+        accessibleRegions = [];
+      }
+
+      document.getElementById('loginOverlay').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+      document.getElementById('headerUserName').textContent = result.user.name || result.user.username;
+      document.getElementById('headerUserRole').textContent = (result.user.role || 'User') + ' · ' + (result.user.access || '—');
+
+      showToast('Welcome, ' + (result.user.name || 'User') + '!', 'success');
+
+      buildTabs();
+      await loadInitialData();
+    } else {
+      errEl.textContent = result.message || 'Invalid credentials.';
+      errEl.classList.add('show');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa fa-sign-in"></i> Sign In';
+    }
+  } catch (e) {
+    errEl.textContent = 'Server error. Please try again.';
+    errEl.classList.add('show');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa fa-sign-in"></i> Sign In';
+  }
+}
+
+function logout() {
+  localStorage.clear();
+  loggedInUser = null;
+  accessibleRegions = [];
+  regionData = {};
+  statisticsData = null;
+  currentTab = '';
+  document.getElementById('mainContent').style.display = 'none';
+  document.getElementById('loginOverlay').style.display = 'flex';
+  document.getElementById('loginUsername').value = '';
+  document.getElementById('loginPassword').value = '';
+  document.getElementById('loginError').classList.remove('show');
+  const btn = document.getElementById('loginBtn');
+  btn.disabled = false;
+  btn.innerHTML = '<i class="fa fa-sign-in"></i> Sign In';
+  showToast('Logged out.', 'info');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('loginPassword').addEventListener('keydown', function(e) { if (e.key === 'Enter') handleLogin(); });
+  document.getElementById('loginUsername').addEventListener('keydown', function(e) { if (e.key === 'Enter') document.getElementById('loginPassword').focus(); });
+  document.getElementById('loginUsername').focus();
+
+  // Auto-restore
+  const token = localStorage.getItem('sessionToken');
+  const username = localStorage.getItem('username');
+  if (token && username) {
+    document.getElementById('loginUsername').value = username;
+  }
+});
+
+// ============================================================
+// BUILD TABS
+// ============================================================
+function buildTabs() {
+  const container = document.getElementById('tabsContainer');
+  const tabContent = document.getElementById('tabContentContainer');
+  container.innerHTML = '';
+  tabContent.innerHTML = '';
+
+  // Data tabs (regions) for Admin, Advt, ICD
+  if (canEditAds()) {
+    accessibleRegions.forEach(function(region) {
+      const btn = document.createElement('button');
+      btn.className = 'tab-btn';
+      btn.setAttribute('data-tab', region);
+      btn.innerHTML = '<i class="fa fa-table"></i> ' + escapeHtml(region);
+      btn.onclick = function() { switchTab(region); };
+      container.appendChild(btn);
+
+      const content = document.createElement('div');
+      content.className = 'tab-content';
+      content.id = 'tab-' + region;
+      content.innerHTML = buildTabContentHTML(region);
+      tabContent.appendChild(content);
+    });
+  }
+
+  // Statistics tab
+  if (STATISTICS_ROLES.indexOf(loggedInUser.role) !== -1) {
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn';
+    btn.setAttribute('data-tab', 'statistics');
+    btn.innerHTML = '<i class="fa fa-bar-chart"></i> Statistics';
+    btn.onclick = function() { switchTab('statistics'); };
+    container.appendChild(btn);
+
+    const content = document.createElement('div');
+    content.className = 'tab-content';
+    content.id = 'tab-statistics';
+    content.innerHTML = `
+      <div style="margin-bottom:16px;"><div class="stats-bar" id="statsBar-statistics"></div></div>
+      <div id="graphSection"></div>
+      <div style="margin-top:20px;" class="stats-grid">
+        <div class="stats-card">
+          <div class="stats-card-header"><i class="fa fa-user"></i> Executive-Revenue</div>
+          <div class="stats-card-body" id="statsExecutiveBody"></div>
+          <div class="stats-card-footer">
+            <span>Total: <strong id="statsExecutiveTotal">₹0</strong></span>
+            <span>Ads: <strong id="statsExecutiveAds">0</strong></span>
+          </div>
+        </div>
+        <div class="stats-card">
+          <div class="stats-card-header"><i class="fa fa-building"></i> Agency/Reporter Summary</div>
+          <div class="stats-card-body" id="statsAgencyBody"></div>
+          <div class="stats-card-footer">
+            <span>Total: <strong id="statsAgencyTotal">₹0</strong></span>
+            <span>Ads: <strong id="statsAgencyAds">0</strong></span>
+          </div>
+        </div>
+      </div>
+    `;
+    tabContent.appendChild(content);
+  }
+
+  // Activate first
+  const firstTab = container.querySelector('.tab-btn');
+  if (firstTab) switchTab(firstTab.getAttribute('data-tab'));
+}
+
+function buildTabContentHTML(region) {
+  const regionLocked = accessibleRegions.length === 1;
+  return `
+    <div class="filters-section">
+      <div class="filter-group">
+        <label>City</label>
+        <select id="filterCity-${region}" disabled>
+          <option value="${region}" selected>${region}</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Desk</label>
+        <select id="filterDesk-${region}" onchange="applyFilters('${region}')"><option value="__ALL__">All</option></select>
+      </div>
+      <div class="filter-group">
+        <label>Agency/Reporter</label>
+        <select id="filterAgency-${region}" onchange="applyFilters('${region}')"><option value="__ALL__">All</option></select>
+        ${canManageAgency() ? `<button class="gear-btn" title="Manage Agencies" onclick="openManageAgency('${region}')"><i class="fa fa-cog"></i></button>` : ''}
+      </div>
+      <div class="filter-group">
+        <label>Executive</label>
+        <select id="filterExecutive-${region}" onchange="applyFilters('${region}')"><option value="__ALL__">All</option></select>
+        ${canManageExec() ? `<button class="gear-btn" title="Manage Executives" onclick="openManageExec('${region}')"><i class="fa fa-cog"></i></button>` : ''}
+      </div>
+      <div class="filter-group">
+        <label>To-DTP</label>
+        <select id="filterToDTP-${region}" onchange="applyFilters('${region}')"><option value="__ALL__">All</option></select>
+      </div>
+      <div class="filter-group">
+        <label>File</label>
+        <select id="filterFile-${region}" onchange="applyFilters('${region}')"><option value="__ALL__">All</option></select>
+      </div>
+      <div class="filter-group">
+        <label>ICD-User</label>
+        <select id="filterICDUser-${region}" onchange="applyFilters('${region}')"><option value="__ALL__">All</option></select>
+      </div>
+      <div class="filter-group">
+        <label>ICD-Remark</label>
+        <select id="filterICDRemark-${region}" onchange="applyFilters('${region}')"><option value="__ALL__">All</option></select>
+      </div>
+      ${canEditAds() ? `
+      <div class="fab-container">
+        <button class="fab-btn" onclick="openAddModal('${region}')" title="Add New Advertisement"><i class="fa fa-plus"></i></button>
+      </div>` : ''}
+    </div>
+    <div class="stats-bar" id="statsBar-${region}">
+      <div class="stats-row stats-main">
+        <span class="stat-item">📋 <strong id="displayCount-${region}">0</strong> ads</span>
+        <span class="stat-divider">|</span>
+        <span class="stat-item">🏢 <strong id="displayDesks-${region}">0</strong> desks</span>
+        <span class="stat-divider">|</span>
+        <span class="stat-item">👤 <strong id="displayExecutives-${region}">0</strong> executives</span>
+        <span class="stat-divider">|</span>
+        <span class="stat-item">📰 <strong id="displayAgencies-${region}">0</strong> agencies</span>
+      </div>
+    </div>
+    <div class="ads-grid" id="adsGrid-${region}">
+      <div class="loading-spinner"><i class="fa fa-spinner fa-spin"></i> Loading...</div>
+    </div>
+  `;
+}
+
+// ============================================================
+// TAB SWITCH
+// ============================================================
+function switchTab(tabName) {
+  currentTab = tabName;
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+
+  const btn = document.querySelector('.tab-btn[data-tab="' + tabName + '"]');
+  if (btn) btn.classList.add('active');
+  const content = document.getElementById('tab-' + tabName);
+  if (content) content.classList.add('active');
+
+  if (tabName === 'statistics') {
+    loadStatistics();
+  } else {
+    if (!regionData[tabName] || !regionData[tabName].loaded) {
+      loadRegion(tabName);
+    } else {
+      applyFilters(tabName);
+    }
+  }
+}
+
+// ============================================================
+// INITIAL LOAD
+// ============================================================
+async function loadInitialData() {
+  // Load the first accessible region (or Statistics if Auth)
+  if (canEditAds() && accessibleRegions.length > 0) {
+    await loadRegion(accessibleRegions[0]);
+  } else if (STATISTICS_ROLES.indexOf(loggedInUser.role) !== -1) {
+    // Load statistics
+    await loadStatistics();
+  }
+  updateGlobalHeaderStats();
+}
+
+async function loadRegion(region) {
+  if (regionData[region] && regionData[region].loaded) return;
+  showLoadingCard(region);
+  try {
+    const result = await callAPI('getDashboardData', { region: region });
+    if (result.success) {
+      regionData[region] = {
+        ads: result.ads || [],
+        filters: result.filters || {},
+        agencies: result.agencies || [],
+        executives: result.executives || [],
+        loaded: true
+      };
+      populateRegionFilters(region);
+      applyFilters(region);
+    } else {
+      showErrorInGrid(region, result.error || 'Failed to load.');
+    }
+  } catch (e) {
+    showErrorInGrid(region, e.message);
+  }
+}
+
+function showLoadingCard(region) {
+  const g = document.getElementById('adsGrid-' + region);
+  if (g) g.innerHTML = '<div class="loading-spinner"><i class="fa fa-spinner fa-spin"></i> Loading advertisement data...</div>';
+}
+
+function showErrorInGrid(region, msg) {
+  const g = document.getElementById('adsGrid-' + region);
+  if (!g) return;
+  g.innerHTML = '<div class="no-results"><i class="fa fa-exclamation-triangle" style="color:#f85149;"></i>' + escapeHtml(msg) + '</div>';
+}
+
+// ============================================================
+// POPULATE FILTERS
+// ============================================================
+function populateRegionFilters(region) {
+  const d = regionData[region];
+  if (!d) return;
+
+  // Desk, Executive, To-DTP, File, ICD-User, ICD-Remark come from filters
+  Object.keys(FILTER_MAP).forEach(function(filterId) {
+    if (filterId === 'filterAgency') return; // handled separately
+    const col = FILTER_MAP[filterId];
+    const sel = document.getElementById(filterId + '-' + region);
+    if (!sel) return;
+    const values = (d.filters[col] || []).slice().sort();
+    let html = '<option value="__ALL__">All</option>';
+    values.forEach(function(v) {
+      let disp = v;
+      if (col === 'To-DTP') disp = formatDateForDisplay(v);
+      html += '<option value="' + escapeHtml(v) + '">' + escapeHtml(disp) + '</option>';
+    });
+    sel.innerHTML = html;
+  });
+
+  // Agency dropdown from Agency sheet (region-scoped)
+  const agencySel = document.getElementById('filterAgency-' + region);
+  if (agencySel) {
+    let html = '<option value="__ALL__">All</option>';
+    d.agencies.forEach(function(a) {
+      html += '<option value="' + escapeHtml(a) + '">' + escapeHtml(a) + '</option>';
+    });
+    agencySel.innerHTML = html;
+  }
+}
+
+// ============================================================
+// APPLY FILTERS
+// ============================================================
+function applyFilters(region) {
+  const d = regionData[region];
+  if (!d) return;
+
+  const active = {};
+  Object.keys(FILTER_MAP).forEach(function(filterId) {
+    const col = FILTER_MAP[filterId];
+    const sel = document.getElementById(filterId + '-' + region);
+    if (sel && sel.value && sel.value !== '__ALL__') active[col] = sel.value;
+  });
+
+  const filtered = d.ads.filter(function(ad) {
+    for (const k in active) {
+      let adVal = ad[k] || '';
+      if (k === 'To-DTP') adVal = formatDateForDisplay(adVal);
+      if (adVal !== active[k]) return false;
+    }
+    return true;
+  });
+
+  renderAds(filtered, region);
+  updateRegionStats(region, filtered);
+}
+
+function updateRegionStats(region, ads) {
+  const desks = new Set(), execs = new Set(), agencies = new Set();
+  ads.forEach(function(ad) {
+    if (ad.Desk) desks.add(ad.Desk);
+    if (ad.Executive) execs.add(ad.Executive);
+    if (ad['Agency/Reporter']) agencies.add(ad['Agency/Reporter']);
+  });
+  document.getElementById('displayCount-' + region).textContent = ads.length;
+  document.getElementById('displayDesks-' + region).textContent = desks.size;
+  document.getElementById('displayExecutives-' + region).textContent = execs.size;
+  document.getElementById('displayAgencies-' + region).textContent = agencies.size;
+}
+
+// ============================================================
+// RENDER ADS
+// ============================================================
+function renderAds(ads, region) {
+  const grid = document.getElementById('adsGrid-' + region);
+  if (!grid) return;
+  if (ads.length === 0) {
+    grid.innerHTML = '<div class="no-results"><i class="fa fa-search"></i>No advertisements found matching filters.</div>';
+    return;
+  }
+  const d = regionData[region];
+  let html = '';
+  ads.forEach(function(ad) {
+    const realIndex = d.ads.indexOf(ad);
+    html += buildAdCard(ad, realIndex, region);
+  });
+  grid.innerHTML = html;
+}
+
+function buildAdCard(ad, rowIndex, region) {
+  const deskColor = ad.Desk ? getColorFromString(ad.Desk) : '#30363d';
+  const scheduleDisplay = ad.Schedule || '';
+  const sizeDisplay = (ad['Size-Width'] || '—') + ' × ' + (ad['Size-Height'] || '—');
+  const toDTPDisplay = ad['To-DTP'] ? formatDateForDisplay(ad['To-DTP']) : '—';
+
+  // ICD limited view
+  const icdView = isICD();
+
+  let bodyHTML = '';
+
+  if (icdView) {
+    bodyHTML = `
+      <div class="row">
+        <div class="col"><span class="label">Client:</span><span class="value">${escapeHtml(ad.Client || '—')}</span></div>
+        <div class="col"><span class="label">Agency/Reporter:</span><span class="value">${escapeHtml(ad['Agency/Reporter'] || '—')}</span></div>
+      </div>
+      <div class="row">
+        <div class="col"><span class="label">Executive:</span><span class="value">${escapeHtml(ad.Executive || '—')}</span></div>
+        <div class="col"><span class="label">Desk:</span><span class="value">${escapeHtml(ad.Desk || '—')}</span></div>
+      </div>
+      <div class="row">
+        <div class="col"><span class="label">Size:</span><span class="value">${escapeHtml(sizeDisplay)}</span></div>
+        <div class="col"><span class="label">To-DTP:</span><span class="value">${escapeHtml(toDTPDisplay)}</span></div>
+      </div>
+      <div class="row">
+        <div class="col"><span class="label">File:</span><span class="value">${escapeHtml(ad.File || '—')}</span></div>
+        <div class="col"><span class="label">ICD-User:</span><span class="value">${escapeHtml(ad['ICD-User'] || '—')}</span></div>
+      </div>
+      <div class="row">
+        <div class="col"><span class="label">ICD-Remark:</span><span class="value">${escapeHtml(ad['ICD-Remark'] || '—')}</span></div>
+        <div class="col"></div>
+      </div>
+    `;
+  } else {
+    bodyHTML = `
+      <div class="row">
+        <div class="col"><span class="label">Client:</span><span class="value">${escapeHtml(ad.Client || '—')}</span></div>
+        <div class="col"><span class="label">Agency/Reporter:</span><span class="value">${escapeHtml(ad['Agency/Reporter'] || '—')}</span></div>
+      </div>
+      <div class="row">
+        <div class="col"><span class="label">Executive:</span><span class="value">${escapeHtml(ad.Executive || '—')}</span></div>
+        <div class="col"><span class="label">Desk:</span><span class="value">${escapeHtml(ad.Desk || '—')}</span></div>
+      </div>
+      <div class="row">
+        <div class="col"><span class="label">Size:</span><span class="value">${escapeHtml(sizeDisplay)}</span></div>
+        <div class="col"><span class="label">SQCM:</span><span class="value highlight">${escapeHtml(ad.SQCM || '—')}</span></div>
+      </div>
+      <div class="row">
+        <div class="col"><span class="label">Total (GST):</span><span class="value highlight">${escapeHtml(ad.Total_with_GST || '—')}</span></div>
+        <div class="col"><span class="label">Net Amount:</span><span class="value">${escapeHtml(ad.Net_Amount || '—')}</span></div>
+      </div>
+      <div class="row">
+        <div class="col"><span class="label">GST:</span><span class="value">${escapeHtml(ad.GST || '—')}</span></div>
+        <div class="col"><span class="label">Rate:</span><span class="value">${escapeHtml(ad.Rate || '—')}</span></div>
+      </div>
+      <div class="row">
+        <div class="col"><span class="label">To-DTP:</span><span class="value">${escapeHtml(toDTPDisplay)}</span></div>
+        <div class="col"><span class="label">File:</span><span class="value">${escapeHtml(ad.File || '—')}</span></div>
+      </div>
+      <div class="row">
+        <div class="col"><span class="label">ICD-User:</span><span class="value">${escapeHtml(ad['ICD-User'] || '—')}</span></div>
+        <div class="col"><span class="label">ICD-Remark:</span><span class="value">${escapeHtml(ad['ICD-Remark'] || '—')}</span></div>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="ad-card" style="border-left-color: ${deskColor};">
+      <div class="card-header">
+        <span class="file-name">📄 ${escapeHtml(ad.File || '—')}</span>
+        <div class="badge-group">
+          <span class="region-badge">${escapeHtml(region)}</span>
+          <span class="desk-badge">${escapeHtml(ad.Desk || '—')}</span>
+          ${ad['ICD-User'] ? `<span class="icd-badge">ICD: ${escapeHtml(ad['ICD-User'])}</span>` : ''}
+        </div>
+      </div>
+      <div class="card-body">${bodyHTML}</div>
+      <div class="card-actions">
+        <button class="btn-action btn-edit" onclick="openEditModal('${region}', ${rowIndex})">
+          <i class="fa fa-edit"></i> Edit
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================
+// ADD / EDIT AD MODAL
+// ============================================================
+function openAddModal(region) {
+  if (!canEditAds()) return;
+  isAddMode = true;
+  currentEditRegion = region;
+  currentEditRowIndex = -1;
+
+  const modal = document.getElementById('editAdModal');
+  const title = document.getElementById('modalTitle');
+  title.innerHTML = '<i class="fa fa-plus"></i> Add New Advertisement (' + region + ')';
+  modal.classList.add('show');
+
+  const d = regionData[region] || { executives: [], agencies: [] };
+  const emptyAd = {
+    Desk: '', 'Agency/Reporter': '', Executive: '', Client: '',
+    'Size-Width': '', 'Size-Height': '', SQCM: '0',
+    Total_with_GST: '', Net_Amount: '', GST: '0', Rate: '0',
+    'To-DTP': getTodayFormatted(), File: '',
+    'ICD-User': isICD() ? loggedInUser.username : '', 'ICD-Remark': ''
+  };
+  renderEditForm(emptyAd, region, false);
+}
+
+async function openEditModal(region, rowIndex) {
+  if (!canEditAds()) return;
+  isAddMode = false;
+  currentEditRegion = region;
+  currentEditRowIndex = rowIndex;
+
+  const modal = document.getElementById('editAdModal');
+  const title = document.getElementById('modalTitle');
+  const body = document.getElementById('editModalBody');
+  const saveBtn = document.getElementById('saveAdBtn');
+  title.innerHTML = '<i class="fa fa-edit"></i> Edit Advertisement (' + region + ')';
+  modal.classList.add('show');
+  body.innerHTML = '<div style="text-align:center;padding:20px;color:#8b949e;"><i class="fa fa-spinner fa-spin"></i> Loading...</div>';
+  saveBtn.disabled = true;
+
+  // rowIndex is index into d.ads (0-based array index), but the real sheet row is +2
+  const sheetRow = rowIndex + 2;
+
+  try {
+    const result = await callAPI('getAdData', { region: region, rowIndex: sheetRow });
+    if (result.success) {
+      renderEditForm(result.ad, region, false);
+      saveBtn.disabled = false;
+    } else {
+      body.innerHTML = '<div class="no-results" style="padding:20px;margin:0;"><i class="fa fa-exclamation-triangle" style="color:#f85149;"></i><p style="color:#f85149;">' + escapeHtml(result.error || 'Error') + '</p></div>';
+    }
+  } catch (e) {
+    body.innerHTML = '<div class="no-results" style="padding:20px;margin:0;"><i class="fa fa-exclamation-triangle" style="color:#f85149;"></i><p style="color:#f85149;">' + escapeHtml(e.message) + '</p></div>';
+  }
+}
+
+function renderEditForm(ad, region, isEditionReadOnly) {
+  const body = document.getElementById('editModalBody');
+  const saveBtn = document.getElementById('saveAdBtn');
+  saveBtn.style.display = 'inline-block';
+  saveBtn.innerHTML = isAddMode ? '<i class="fa fa-plus"></i> Add New' : '<i class="fa fa-save"></i> Save Changes';
+
+  if (datePickerInstance) { datePickerInstance.destroy(); datePickerInstance = null; }
+
+  const d = regionData[region] || { executives: [], agencies: [] };
+  const icdView = isICD();
+  const readOnlyStyle = 'background:#161b22 !important;color:#8b949e !important;cursor:not-allowed !important;opacity:0.7 !important;';
+
+  const execOptions = d.executives || [];
+  const agencyOptions = d.agencies || [];
+
+  function execOptionsHTML(selected) {
+    let h = '<option value="">— Select —</option>';
+    execOptions.forEach(function(e) {
+      h += `<option value="${escapeHtml(e.Name)}" data-desk="${escapeHtml(e.Desk)}" ${e.Name === selected ? 'selected' : ''}>${escapeHtml(e.Name)} (${escapeHtml(e.Desk)})</option>`;
+    });
+    return h;
+  }
+
+  function agencyOptionsHTML(selected) {
+    let h = '<option value="">— Select —</option>';
+    agencyOptions.forEach(function(a) {
+      h += `<option value="${escapeHtml(a)}" ${a === selected ? 'selected' : ''}>${escapeHtml(a)}</option>`;
+    });
+    if (canManageAgency()) h += '<option value="__ADD_NEW__" style="color:#58a6ff;font-weight:bold;">+ Add New Agency/Reporter</option>';
+    return h;
+  }
+
+  // When ICD: read-only for most fields
+  function ro(fieldName) {
+    return icdView && ICD_EDITABLE_FIELDS.indexOf(fieldName) === -1;
+  }
+
+  let html = '';
+
+  // Row 1: Executive, Client, Agency
+  html += '<div class="form-group"><label>Executive <span class="required-star">*</span>' + (ro('Executive') ? ' <span style="color:#f85149;font-size:10px;">(view only)</span>' : '') + '</label>';
+  html += '<select id="edit_Executive" onchange="autoPopulateDesk()" ' + (ro('Executive') ? 'disabled' : '') + '>' + execOptionsHTML(ad.Executive) + '</select>';
+  html += '<div class="field-hint"><i class="fa fa-info-circle"></i> Filtered to ' + region + '</div></div>';
+
+  html += '<div class="form-group"><label>Client</label>';
+  html += '<input type="text" id="edit_Client" value="' + escapeHtml(ad.Client || '') + '" ' + (ro('Client') ? 'disabled style="' + readOnlyStyle + '"' : '') + '></div>';
+
+  html += '<div class="form-group"><label>Agency/Reporter</label>';
+  html += '<select id="edit_Agency" onchange="handleAgencyEditChange(this)" ' + (ro('Agency/Reporter') ? 'disabled' : '') + '>' + agencyOptionsHTML(ad['Agency/Reporter']) + '</select></div>';
+
+  // Row 2: Desk (readonly auto), Size Width, Size Height
+  html += '<div class="form-group"><label>Desk <span style="color:#8b949e;font-size:10px;">(auto)</span></label>';
+  html += '<input type="text" id="edit_Desk" value="' + escapeHtml(ad.Desk || '') + '" disabled readonly style="' + readOnlyStyle + '"></div>';
+
+  html += '<div class="form-group"><label>Width</label>';
+  html += '<input type="text" id="edit_Size-Width" value="' + escapeHtml(ad['Size-Width'] || '') + '" oninput="updateCalculations(\'size\')" ' + (ro('Size-Width') ? 'disabled style="' + readOnlyStyle + '"' : '') + '></div>';
+
+  html += '<div class="form-group"><label>Height</label>';
+  html += '<input type="text" id="edit_Size-Height" value="' + escapeHtml(ad['Size-Height'] || '') + '" oninput="updateCalculations(\'size\')" ' + (ro('Size-Height') ? 'disabled style="' + readOnlyStyle + '"' : '') + '></div>';
+
+  // Row 3: SQCM (calculated), Total_with_GST, Net_Amount
+  html += '<div class="form-group"><label>SQCM <span style="color:#58a6ff;font-size:10px;">(auto)</span></label>';
+  html += '<input type="text" id="edit_SQCM" value="' + escapeHtml(ad.SQCM || '0') + '" readonly class="calculated-field"></div>';
+
+  html += '<div class="form-group"><label>Total with GST</label>';
+  html += '<input type="text" id="edit_Total_with_GST" value="' + escapeHtml(ad.Total_with_GST || '') + '" oninput="updateCalculations(\'total\')" ' + (ro('Total_with_GST') ? 'disabled style="' + readOnlyStyle + '"' : '') + '></div>';
+
+  html += '<div class="form-group"><label>Net Amount</label>';
+  html += '<input type="text" id="edit_Net_Amount" value="' + escapeHtml(ad.Net_Amount || '') + '" oninput="updateCalculations(\'net\')" ' + (ro('Net_Amount') ? 'disabled style="' + readOnlyStyle + '"' : '') + '></div>';
+
+  // Row 4: GST (calculated), Rate (calculated), To-DTP
+  html += '<div class="form-group"><label>GST (5%) <span style="color:#58a6ff;font-size:10px;">(auto)</span></label>';
+  html += '<input type="text" id="edit_GST" value="' + escapeHtml(ad.GST || '0') + '" readonly class="calculated-field"></div>';
+
+  html += '<div class="form-group"><label>Rate <span style="color:#58a6ff;font-size:10px;">(auto)</span></label>';
+  html += '<input type="text" id="edit_Rate" value="' + escapeHtml(ad.Rate || '0') + '" readonly class="calculated-field"></div>';
+
+  html += '<div class="form-group"><label>To-DTP <span class="required-star">*</span></label>';
+  html += '<input type="text" id="edit_To-DTP" value="' + escapeHtml(formatDateForDisplay(ad['To-DTP'] || '')) + '" placeholder="dd-mm-yyyy" autocomplete="off" ' + (ro('To-DTP') ? 'disabled style="' + readOnlyStyle + '"' : '') + '></div>';
+
+  // Row 5: File, ICD-User, ICD-Remark
+  html += '<div class="form-group"><label>File</label>';
+  html += '<input type="text" id="edit_File" value="' + escapeHtml(ad.File || '') + '" ' + (ro('File') ? 'disabled style="' + readOnlyStyle + '"' : '') + '></div>';
+
+  html += '<div class="form-group"><label>ICD-User</label>';
+  html += '<select id="edit_ICD-User" ' + (ro('ICD-User') ? 'disabled' : '') + '><option value="">— Select —</option>';
+  ICD_USER_OPTIONS.forEach(function(u) {
+    html += '<option value="' + u + '" ' + (u === ad['ICD-User'] ? 'selected' : '') + '>' + u + '</option>';
+  });
+  html += '</select></div>';
+
+  html += '<div class="form-group"><label>ICD-Remark</label>';
+  html += '<input type="text" id="edit_ICD-Remark" value="' + escapeHtml(ad['ICD-Remark'] || '') + '" ' + (ro('ICD-Remark') ? 'disabled style="' + readOnlyStyle + '"' : '') + '></div>';
+
+  body.innerHTML = '<div class="ad-edit-form">' + html + '</div>';
+
+  // Desk auto-fill
+  setTimeout(function() { autoPopulateDesk(); updateCalculations('init'); }, 50);
+
+  // Datepicker
+  const dateInput = document.getElementById('edit_To-DTP');
+  if (dateInput && !dateInput.disabled) {
+    datePickerInstance = flatpickr(dateInput, {
+      dateFormat: 'd-m-Y',
+      allowInput: true,
+      defaultDate: dateInput.value || (isAddMode ? getTodayFormatted() : undefined)
+    });
+  }
+}
+
+function autoPopulateDesk() {
+  const execSel = document.getElementById('edit_Executive');
+  const deskInput = document.getElementById('edit_Desk');
+  if (!execSel || !deskInput) return;
+  const opt = execSel.options[execSel.selectedIndex];
+  const desk = opt ? (opt.getAttribute('data-desk') || '') : '';
+  deskInput.value = desk;
+}
+
+function updateCalculations(source) {
+  const widthEl = document.getElementById('edit_Size-Width');
+  const heightEl = document.getElementById('edit_Size-Height');
+  const sqcmEl = document.getElementById('edit_SQCM');
+  const totalEl = document.getElementById('edit_Total_with_GST');
+  const netEl = document.getElementById('edit_Net_Amount');
+  const gstEl = document.getElementById('edit_GST');
+  const rateEl = document.getElementById('edit_Rate');
+  if (!widthEl || !heightEl || !sqcmEl) return;
+
+  const w = parseInt(widthEl.value) || 0;
+  const h = parseInt(heightEl.value) || 0;
+  const sqcm = w * h;
+  sqcmEl.value = sqcm;
+
+  if (!totalEl || !netEl || !gstEl || !rateEl) return;
+
+  let net = parseInt(netEl.value) || 0;
+
+  if (source === 'total') {
+    const total = parseInt(totalEl.value) || 0;
+    if (total > 0) {
+      net = Math.round((total / 105) * 100);
+      const gst = Math.round(net * 0.05);
+      netEl.value = net;
+      gstEl.value = gst;
+    } else {
+      netEl.value = '0'; gstEl.value = '0'; net = 0;
+    }
+  } else if (source === 'net') {
+    if (net > 0) {
+      const total = Math.round(net * 1.05);
+      const gst = Math.round(net * 0.05);
+      totalEl.value = total;
+      gstEl.value = gst;
+    } else {
+      totalEl.value = '0'; gstEl.value = '0';
+    }
+  }
+
+  if (net > 0 && sqcm > 0) {
+    rateEl.value = Math.round(net / sqcm);
+  } else {
+    rateEl.value = '0';
+  }
+}
+
+function handleAgencyEditChange(sel) {
+  if (sel.value === '__ADD_NEW__') {
+    const name = prompt('Enter new Agency/Reporter name:');
+    if (name && name.trim()) {
+      const trimmed = name.trim();
+      // Add to dropdown
+      const opt = document.createElement('option');
+      opt.value = trimmed;
+      opt.textContent = trimmed;
+      opt.selected = true;
+      sel.insertBefore(opt, sel.options[sel.options.length - 1]);
+      // Save
+      callAPI('addAgency', { name: trimmed, city: currentEditRegion }).then(function(r) {
+        if (r.success) {
+          showToast('Agency added.', 'success');
+          if (regionData[currentEditRegion]) {
+            regionData[currentEditRegion].agencies.push(trimmed);
+          }
+        } else {
+          showToast(r.error || 'Failed.', 'error');
+        }
+      });
+    } else {
+      sel.value = '';
+    }
+  }
+}
+
+async function saveAdData() {
+  const btn = document.getElementById('saveAdBtn');
+  btn.disabled = true;
+  const origLabel = btn.innerHTML;
+  btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Saving...';
+
+  try {
+    const region = currentEditRegion;
+    const icdView = isICD();
+
+    const adData = {};
+    const fields = ['Desk','Agency','Executive','Client','Size-Width','Size-Height','SQCM','Total_with_GST','Net_Amount','GST','Rate','To-DTP','File','ICD-User','ICD-Remark'];
+
+    function readVal(id) {
+      const el = document.getElementById('edit_' + id);
+      return el ? el.value.trim() : '';
+    }
+
+    adData.Desk = readVal('Desk');
+    adData['Agency/Reporter'] = readVal('Agency');
+    adData.Executive = readVal('Executive');
+    adData.Client = readVal('Client');
+    adData['Size-Width'] = readVal('Size-Width');
+    adData['Size-Height'] = readVal('Size-Height');
+    adData.SQCM = readVal('SQCM');
+    adData.Total_with_GST = readVal('Total_with_GST');
+    adData.Net_Amount = readVal('Net_Amount');
+    adData.GST = readVal('GST');
+    adData.Rate = readVal('Rate');
+    adData['To-DTP'] = formatDateForSheet(readVal('To-DTP'));
+    adData.File = readVal('File');
+    adData['ICD-User'] = readVal('ICD-User');
+    adData['ICD-Remark'] = readVal('ICD-Remark');
+
+    let result;
+    if (isAddMode) {
+      result = await callAPI('addAd', { adData: adData, region: region });
+    } else {
+      const sheetRow = currentEditRowIndex + 2;
+      result = await callAPI('updateAd', { adData: adData, region: region, rowIndex: sheetRow });
+    }
+
+    if (result.success) {
+      showToast(isAddMode ? 'Ad added.' : 'Ad updated.', 'success');
+      // Reload region
+      delete regionData[region];
+      await loadRegion(region);
+      closeEditModal();
+      updateGlobalHeaderStats();
+    } else {
+      showToast(result.error || 'Save failed.', 'error');
+    }
+  } catch (e) {
+    showToast('Error: ' + e.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = origLabel;
+  }
+}
+
+function closeEditModal() {
+  if (datePickerInstance) { datePickerInstance.destroy(); datePickerInstance = null; }
+  document.getElementById('editAdModal').classList.remove('show');
+}
+
+// ============================================================
+// MANAGE EXECUTIVES
+// ============================================================
+async function openManageExec(region) {
+  if (!canManageExec()) return;
+  const modal = document.getElementById('manageExecModal');
+  const body = document.getElementById('manageExecBody');
+  modal.classList.add('show');
+  body.innerHTML = '<div class="loading-spinner" style="padding:20px;"><i class="fa fa-spinner fa-spin"></i> Loading...</div>';
+  await renderManageExec(region);
+}
+
+async function renderManageExec(region) {
+  const body = document.getElementById('manageExecBody');
+  try {
+    const r = await callAPI('getExecutiveOptions', { region: region });
+    if (!r.success) {
+      body.innerHTML = '<div class="no-results">' + escapeHtml(r.error || 'Error') + '</div>';
+      return;
+    }
+    const execs = r.executives || [];
+    let html = '<div style="margin-bottom:8px;color:#8b949e;font-size:12px;">Managing executives for: <strong style="color:#58a6ff;">' + escapeHtml(region) + '</strong></div>';
+    html += '<table class="manage-table"><thead><tr><th>Name</th><th>City</th><th>Desk</th><th style="width:80px;">Action</th></tr></thead><tbody>';
+    if (execs.length === 0) {
+      html += '<tr><td colspan="4" style="text-align:center;color:#8b949e;padding:20px;">No executives yet.</td></tr>';
+    } else {
+      execs.forEach(function(e) {
+        html += '<tr>' +
+          '<td>' + escapeHtml(e.Name) + '</td>' +
+          '<td>' + escapeHtml(e.City) + '</td>' +
+          '<td>' + escapeHtml(e.Desk) + '</td>' +
+          '<td><button class="del-btn" onclick="deleteExec(\'' + region + '\', \'' + escapeHtml(e.Name) + '\', \'' + escapeHtml(e.City) + '\')">Delete</button></td>' +
+          '</tr>';
+      });
+    }
+    html += '</tbody></table>';
+    html += '<div class="manage-add-row">' +
+      '<div class="form-group"><label>Name</label><input type="text" id="newExecName" placeholder="Executive name"></div>' +
+      '<div class="form-group"><label>City</label><input type="text" id="newExecCity" value="' + escapeHtml(region) + '" disabled></div>' +
+      '<div class="form-group"><label>Desk</label><select id="newExecDesk"><option value="">— Select —</option>' + DESK_OPTIONS.map(function(d) { return '<option value="' + d + '">' + d + '</option>'; }).join('') + '</select></div>' +
+      '<button class="btn-add" onclick="addExec(\'' + region + '\')"><i class="fa fa-plus"></i> Add</button>' +
+      '</div>';
+    body.innerHTML = html;
+  } catch (e) {
+    body.innerHTML = '<div class="no-results">' + escapeHtml(e.message) + '</div>';
+  }
+}
+
+async function addExec(region) {
+  const name = document.getElementById('newExecName').value.trim();
+  const desk = document.getElementById('newExecDesk').value;
+  if (!name || !desk) { showToast('Enter name and desk.', 'error'); return; }
+  try {
+    const r = await callAPI('addExecutive', { name: name, city: region, desk: desk });
+    if (r.success) {
+      showToast('Executive added.', 'success');
+      await renderManageExec(region);
+      // Invalidate region data so dropdown refreshes
+      if (regionData[region]) delete regionData[region];
+    } else {
+      showToast(r.error || 'Failed.', 'error');
+    }
+  } catch (e) { showToast(e.message, 'error'); }
+}
+
+async function deleteExec(region, name, city) {
+  if (!confirm('Delete executive "' + name + '" from ' + city + '?\n\nExisting ad data will not be affected.')) return;
+  try {
+    const r = await callAPI('deleteExecutive', { name: name, city: city });
+    if (r.success) {
+      showToast('Deleted.', 'success');
+      await renderManageExec(region);
+      if (regionData[region]) delete regionData[region];
+    } else {
+      showToast(r.error || 'Failed.', 'error');
+    }
+  } catch (e) { showToast(e.message, 'error'); }
+}
+
+function closeManageExecModal() {
+  document.getElementById('manageExecModal').classList.remove('show');
+}
+
+// ============================================================
+// MANAGE AGENCIES
+// ============================================================
+async function openManageAgency(region) {
+  if (!canManageAgency()) return;
+  const modal = document.getElementById('manageAgencyModal');
+  const body = document.getElementById('manageAgencyBody');
+  modal.classList.add('show');
+  body.innerHTML = '<div class="loading-spinner" style="padding:20px;"><i class="fa fa-spinner fa-spin"></i> Loading...</div>';
+  await renderManageAgency(region);
+}
+
+async function renderManageAgency(region) {
+  const body = document.getElementById('manageAgencyBody');
+  try {
+    const r = await callAPI('getAgencyOptions', { region: region });
+    if (!r.success) {
+      body.innerHTML = '<div class="no-results">' + escapeHtml(r.error || 'Error') + '</div>';
+      return;
+    }
+    const agencies = r.agencies || [];
+    let html = '<div style="margin-bottom:8px;color:#8b949e;font-size:12px;">Managing agencies for: <strong style="color:#58a6ff;">' + escapeHtml(region) + '</strong></div>';
+    html += '<table class="manage-table"><thead><tr><th style="width:40px;">#</th><th>Agency/Reporter</th><th style="width:80px;">Action</th></tr></thead><tbody>';
+    if (agencies.length === 0) {
+      html += '<tr><td colspan="3" style="text-align:center;color:#8b949e;padding:20px;">No agencies yet.</td></tr>';
+    } else {
+      agencies.forEach(function(a, i) {
+        html += '<tr>' +
+          '<td>' + (i+1) + '</td>' +
+          '<td>' + escapeHtml(a) + '</td>' +
+          '<td><button class="del-btn" onclick="deleteAgency(\'' + region + '\', \'' + escapeHtml(a).replace(/'/g, "\\'") + '\')">Delete</button></td>' +
+          '</tr>';
+      });
+    }
+    html += '</tbody></table>';
+    html += '<div class="manage-add-row cols-2">' +
+      '<div class="form-group"><label>Agency/Reporter Name</label><input type="text" id="newAgencyName" placeholder="Agency name"></div>' +
+      '<div class="form-group"><label>City</label><input type="text" id="newAgencyCity" value="' + escapeHtml(region) + '" disabled></div>' +
+      '<button class="btn-add" onclick="addAgencyFromModal(\'' + region + '\')"><i class="fa fa-plus"></i> Add</button>' +
+      '</div>';
+    body.innerHTML = html;
+  } catch (e) {
+    body.innerHTML = '<div class="no-results">' + escapeHtml(e.message) + '</div>';
+  }
+}
+
+async function addAgencyFromModal(region) {
+  const name = document.getElementById('newAgencyName').value.trim();
+  if (!name) { showToast('Enter agency name.', 'error'); return; }
+  try {
+    const r = await callAPI('addAgency', { name: name, city: region });
+    if (r.success) {
+      showToast('Agency added.', 'success');
+      await renderManageAgency(region);
+      if (regionData[region]) delete regionData[region];
+    } else {
+      showToast(r.error || 'Failed.', 'error');
+    }
+  } catch (e) { showToast(e.message, 'error'); }
+}
+
+async function deleteAgency(region, name) {
+  if (!confirm('Delete agency "' + name + '" from ' + region + '?\n\nExisting ad data will not be affected.')) return;
+  try {
+    const r = await callAPI('deleteAgency', { name: name, city: region });
+    if (r.success) {
+      showToast('Deleted.', 'success');
+      await renderManageAgency(region);
+      if (regionData[region]) delete regionData[region];
+    } else {
+      showToast(r.error || 'Failed.', 'error');
+    }
+  } catch (e) { showToast(e.message, 'error'); }
+}
+
+function closeManageAgencyModal() {
+  document.getElementById('manageAgencyModal').classList.remove('show');
+}
+
+// ============================================================
+// STATISTICS
+// ============================================================
+async function loadStatistics() {
+  const statsBar = document.getElementById('statsBar-statistics');
+  if (statsBar) statsBar.innerHTML = '<div class="loading-spinner" style="padding:20px;"><i class="fa fa-spinner fa-spin"></i> Loading statistics...</div>';
+
+  try {
+    const result = await callAPI('getStatistics', {});
+    if (!result.success) {
+      if (statsBar) statsBar.innerHTML = '<div class="no-results">' + escapeHtml(result.error || 'Failed') + '</div>';
+      return;
+    }
+    statisticsData = result;
+    renderStatistics();
+    renderGraphs(result);
+  } catch (e) {
+    if (statsBar) statsBar.innerHTML = '<div class="no-results">' + escapeHtml(e.message) + '</div>';
+  }
+}
+
+function renderStatistics() {
+  const d = statisticsData;
+  if (!d) return;
+  const s = d.summary;
+
+  // Header chips
+  let chips = `
+    <div class="stats-row stats-main">
+      <span class="stat-item">📋 Total Ads: <strong>${s.totalAds}</strong></span>
+      <span class="stat-divider">|</span>
+      <span class="stat-item">💰 Total Revenue: <strong>₹${formatCurrency(s.totalRevenue)}</strong></span>
+      <span class="stat-divider">|</span>
+      <span class="stat-item">🏙️ City Revenue: <strong style="color:#58a6ff;">₹${formatCurrency(s.cityRevenue)}</strong></span>
+      <span class="stat-divider">|</span>
+      <span class="stat-item">🌾 Gram Revenue: <strong style="color:#3fb950;">₹${formatCurrency(s.gramRevenue)}</strong></span>
+      <span class="stat-divider">|</span>
+      <span class="stat-item">📰 Agencies: <strong>${s.activeAgencies}</strong></span>
+    </div>
+  `;
+
+  // Per-region chips (only regions the user has access to)
+  if (d.accessibleRegions && d.accessibleRegions.length > 0) {
+    chips += '<div class="stats-row" style="border-top:1px solid #30363d;">';
+    d.accessibleRegions.forEach(function(r, i) {
+      const rev = s.regionRevenue[r] || 0;
+      if (i > 0) chips += '<span class="stat-divider">|</span>';
+      chips += '<span class="stat-item">📍 ' + r + ': <strong>₹' + formatCurrency(rev) + '</strong></span>';
+    });
+    chips += '</div>';
+  }
+
+  document.getElementById('statsBar-statistics').innerHTML = chips;
+
+  // Executive card
+  renderStatsCard('statsExecutiveBody', 'statsExecutiveTotal', 'statsExecutiveAds', d.executives, s.totalRevenue, s.totalAds);
+  // Agency card
+  renderStatsCard('statsAgencyBody', 'statsAgencyTotal', 'statsAgencyAds', d.agencies, s.totalRevenue, s.totalAds);
+}
+
+function renderStatsCard(bodyId, totalId, adsId, dataMap, totalRevenue, totalAds) {
+  const body = document.getElementById(bodyId);
+  if (!body) return;
+  const entries = Object.keys(dataMap).map(function(k) { return [k, dataMap[k]]; });
+  entries.sort(function(a, b) { return b[1].revenue - a[1].revenue; });
+  const filtered = entries.filter(function(e) { return e[0] && e[0] !== 'Unknown'; });
+
+  if (filtered.length === 0) {
+    body.innerHTML = '<div class="no-results" style="padding:20px;margin:0;"><i class="fa fa-search"></i>No data</div>';
+    document.getElementById(totalId).textContent = '₹0';
+    document.getElementById(adsId).textContent = '0';
+    return;
+  }
+
+  let html = '';
+  let inactiveCount = 0;
+  filtered.forEach(function(e, idx) {
+    const name = e[0], data = e[1];
+    const pct = totalRevenue > 0 ? (data.revenue / totalRevenue * 100) : 0;
+    const color = getColorFromString(name);
+    const isInactive = data.count === 0;
+    if (isInactive) inactiveCount++;
+    html += `<div class="stat-row" style="${isInactive ? 'opacity:0.6;' : ''}">
+      <span class="rank">${idx+1}</span>
+      <span class="name" style="${isInactive ? 'color:#8b949e;' : ''}">${escapeHtml(name)}</span>
+      <span class="count">${data.count}</span>
+      <span class="amount" style="${isInactive ? 'color:#484f58;' : ''}">₹${formatCurrency(data.revenue)}</span>
+      <div class="bar-container"><div class="bar" style="width:${isInactive ? 0 : pct}%;background:${isInactive ? '#30363d' : color};"></div></div>
+      <span class="percent" style="${isInactive ? 'color:#484f58;' : ''}">${pct.toFixed(1)}%</span>
+    </div>`;
+  });
+  if (inactiveCount > 0) {
+    html += '<div style="margin-top:8px;padding:6px 10px;background:rgba(248,81,73,0.1);border-radius:4px;font-size:11px;color:#f85149;border-left:3px solid #f85149;"><i class="fa fa-exclamation-triangle"></i> ' + inactiveCount + ' inactive with 0 ads</div>';
+  }
+  body.innerHTML = html;
+  document.getElementById(totalId).textContent = '₹' + formatCurrency(totalRevenue);
+  document.getElementById(adsId).textContent = totalAds;
+}
+
+// ============================================================
+// GRAPHS
+// ============================================================
+function renderGraphs(statsResult) {
+  const graphSection = document.getElementById('graphSection');
+  if (!graphSection) return;
+
+  Object.keys(chartInstances).forEach(function(k) {
+    if (chartInstances[k]) chartInstances[k].destroy();
+  });
+  chartInstances = {};
+
+  const ads = statsResult.ads || [];
+  const role = loggedInUser.role;
+  const deskFilter = statsResult.deskFilter; // 'City' / 'Gram' / null
+
+  // Determine which graphs to show
+  let html = '';
+  const showCombined = (role === 'Admin' || role === 'Auth-All' || (!deskFilter && role !== 'Auth-City' && role !== 'Auth-Gram'));
+  const showCity = (role === 'Admin' || role === 'Auth-All' || role === 'Auth-City') && !(role === 'Auth-Gram');
+  const showGram = (role === 'Admin' || role === 'Auth-All' || role === 'Auth-Gram') && !(role === 'Auth-City');
+
+  function makeGraphCard(id, title, adsSubset, color) {
+    const gd = prepareGraphData(adsSubset);
+    let inner;
+    if (gd.labels.length === 0) {
+      inner = '<div class="graph-card-body" style="text-align:center;padding:40px 20px;color:#8b949e;"><i class="fa fa-bar-chart" style="font-size:32px;opacity:0.3;display:block;margin-bottom:12px;"></i>No data</div>' +
+        '<div class="graph-card-footer"><span>Total Revenue: <strong>₹0</strong></span><span>Ads: <strong>0</strong></span></div>';
+    } else {
+      inner = '<div class="graph-card-body"><canvas id="' + id + '"></canvas></div>' +
+        '<div class="graph-card-footer"><span>Total Revenue: <strong style="color:' + color + ';">₹' + formatCurrency(gd.totalRevenue) + '</strong></span>' +
+        '<span>Total Ads: <strong>' + gd.totalAds + '</strong></span>' +
+        '<span>Avg Daily: <strong style="color:' + color + ';">₹' + formatCurrency(gd.labels.length > 0 ? Math.round(gd.totalRevenue / gd.labels.length) : 0) + '</strong></span></div>';
+    }
+    return '<div class="graph-card">' +
+      '<div class="graph-card-header"><span><i class="fa fa-line-chart"></i> ' + title + '</span>' +
+      '<span style="font-size:12px;font-weight:400;color:#8b949e;">' + gd.labels.length + ' days · Cumulative</span></div>' + inner + '</div>';
+  }
+
+  function makeEmptyGraph(id, title, color) { return makeGraphCard(id, title, [], color); }
+
+  let cols = [];
+  if (showCombined) cols.push({ id: 'graphCombined', title: '📊 Combined Revenue (Cumulative)', subset: ads, color: '#58a6ff' });
+  if (showCity) {
+    const cityAds = deskFilter === 'City' ? ads : ads.filter(function(a) { return a.Desk === 'City'; });
+    cols.push({ id: 'graphCity', title: '🏙️ City Revenue (Cumulative)', subset: cityAds, color: '#58a6ff' });
+  }
+  if (showGram) {
+    const gramAds = deskFilter === 'Gram' ? ads : ads.filter(function(a) { return a.Desk === 'Gram'; });
+    cols.push({ id: 'graphGram', title: '🌾 Gram Revenue (Cumulative)', subset: gramAds, color: '#3fb950' });
+  }
+
+  if (cols.length === 0) {
+    graphSection.innerHTML = '';
+    return;
+  }
+
+  const gridCols = cols.length === 1 ? '1fr' : (cols.length === 2 ? '1fr 1fr' : '1fr 1fr 1fr');
+  html = '<div class="graph-container" style="grid-template-columns:' + gridCols + ';">';
+  cols.forEach(function(c) { html += makeGraphCard(c.id, c.title, c.subset, c.color); });
+  html += '</div>';
+  graphSection.innerHTML = html;
+
+  // Render charts
+  setTimeout(function() {
+    cols.forEach(function(c) {
+      const gd = prepareGraphData(c.subset);
+      if (gd.labels.length > 0) {
+        chartInstances[c.id] = createLineChart(c.id, gd, c.color);
+      }
+    });
+  }, 100);
+}
+
+function prepareGraphData(ads) {
+  const byDate = {};
+  ads.forEach(function(ad) {
+    const dt = formatDateForDisplay(ad['To-DTP'] || '');
+    if (!dt) return;
+    const net = parseInt(ad.Net_Amount, 10) || 0;
+    if (net <= 0) return;
+    byDate[dt] = (byDate[dt] || 0) + net;
+  });
+  const dates = Object.keys(byDate).sort(function(a, b) {
+    const pa = a.split('-'), pb = b.split('-');
+    if (pa.length === 3 && pb.length === 3) {
+      return new Date(pa[2], pa[1]-1, pa[0]) - new Date(pb[2], pb[1]-1, pb[0]);
+    }
+    return a.localeCompare(b);
+  });
+  let cum = 0;
+  const labels = [], cumulative = [], daily = [];
+  dates.forEach(function(dt) {
+    cum += byDate[dt];
+    const p = dt.split('-');
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    labels.push(parseInt(p[0]) + ' ' + months[parseInt(p[1])-1]);
+    cumulative.push(cum);
+    daily.push(byDate[dt]);
+  });
+  return { labels: labels, cumulativeData: cumulative, dailyData: daily, totalRevenue: cum, totalAds: ads.filter(function(a){return a['To-DTP']}).length, dates: dates };
+}
+
+function createLineChart(canvasId, gd, color) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return null;
+  const ctx = canvas.getContext('2d');
+  const gradient = ctx.createLinearGradient(0, 0, 0, 200);
+  gradient.addColorStop(0, color + '33');
+  gradient.addColorStop(1, color + '00');
+
+  return new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: gd.labels,
+      datasets: [{
+        label: 'Cumulative Revenue (₹)',
+        data: gd.cumulativeData,
+        borderColor: color,
+        backgroundColor: gradient,
+        fill: true,
+        tension: 0.3,
+        pointBackgroundColor: color,
+        pointBorderColor: '#161b22',
+        pointBorderWidth: 2,
+        pointRadius: 4,
+        pointHoverRadius: 7,
+        borderWidth: 2.5
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: { labels: { color: '#8b949e', font: { size: 11 }, boxWidth: 12, padding: 8 } },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) {
+              const i = ctx.dataIndex;
+              return ['📅 ' + gd.dates[i], 'Daily: ₹' + formatCurrency(gd.dailyData[i] || 0), 'Cumulative: ₹' + formatCurrency(gd.cumulativeData[i] || 0)];
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: { color: 'rgba(255,255,255,0.06)', drawBorder: false },
+          ticks: { color: '#8b949e', font: { size: 10 }, callback: function(v) { return v >= 1000 ? '₹' + (v/1000) + 'K' : '₹' + v; } }
+        },
+        x: { grid: { display: false }, ticks: { color: '#8b949e', font: { size: 10 }, maxRotation: 45 } }
+      },
+      animation: { duration: 800, easing: 'easeOutQuart' }
+    }
+  });
+}
+
+// ============================================================
+// HEADER GLOBAL STATS
+// ============================================================
+function updateGlobalHeaderStats() {
+  // Only for Admin/Advt with a header stats display
+  if (!isAdmin() && !isAdvt()) return;
+  // We'll compute using loaded region data
+  let totalAds = 0, city = 0, gram = 0;
+  Object.keys(regionData).forEach(function(r) {
+    const d = regionData[r];
+    if (!d || !d.loaded) return;
+    d.ads.forEach(function(ad) {
+      totalAds++;
+      const net = parseInt(ad.Net_Amount, 10) || 0;
+      if (ad.Desk === 'City') city += net;
+      else if (ad.Desk === 'Gram') gram += net;
+    });
+  });
+  const el = document.getElementById('headerStats');
+  if (!el) return;
+  el.innerHTML =
+    '<span class="stat-chip"><span class="stat-label">📋 Ads</span><span class="stat-value">' + totalAds + '</span></span>' +
+    '<span class="stat-divider">|</span>' +
+    '<span class="stat-chip"><span class="stat-label">🏙️ City</span><span class="stat-value">₹' + formatCurrency(city) + '</span></span>' +
+    '<span class="stat-divider">|</span>' +
+    '<span class="stat-chip"><span class="stat-label">🌾 Gram</span><span class="stat-value" style="color:#3fb950;">₹' + formatCurrency(gram) + '</span></span>';
+}
+
+// ============================================================
+// MODAL CLOSE ON ESC / OVERLAY
+// ============================================================
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeEditModal();
+    closeManageExecModal();
+    closeManageAgencyModal();
+  }
+});
+['editAdModal', 'manageExecModal', 'manageAgencyModal'].forEach(function(id) {
+  document.getElementById(id).addEventListener('click', function(e) {
+    if (e.target === this) {
+      if (id === 'editAdModal') closeEditModal();
+      if (id === 'manageExecModal') closeManageExecModal();
+      if (id === 'manageAgencyModal') closeManageAgencyModal();
+    }
+  });
+});
+</script>
+</body>
+</html>
