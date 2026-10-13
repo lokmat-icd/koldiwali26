@@ -17,7 +17,6 @@
   ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: #58a6ff; }
 
-  /* LOGIN */
   #loginOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 9999; display: flex; align-items: center; justify-content: center; }
   #loginOverlay .login-box { background: #161b22; padding: 45px 50px 50px; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.7); max-width: 420px; width: 100%; border: 1px solid #30363d; }
   #loginOverlay .login-box .logo { text-align: center; margin-bottom: 25px; }
@@ -29,12 +28,11 @@
   #loginOverlay .login-box .form-group input { border-radius: 8px; border: 1px solid #30363d; background: #0d1117; color: #e6edf3; padding: 10px 14px; font-size: 14px; width: 100%; transition: all 0.3s; }
   #loginOverlay .login-box .form-group input:focus { outline: none; border-color: #58a6ff; box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2); }
   #loginOverlay .login-box .login-btn { width: 100%; padding: 12px; border: none; border-radius: 8px; background: #238636; color: white; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s; margin-top: 5px; }
-  #loginOverlay .login-box .login-btn:hover { background: #2ea043; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(35, 134, 54, 0.4); }
+  #loginOverlay .login-box .login-btn:hover { background: #2ea043; transform: translateY(-2px); }
   #loginOverlay .login-box .login-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
   #loginOverlay .login-box .login-error { color: #f85149; font-size: 13px; text-align: center; margin-top: 12px; display: none; }
   #loginOverlay .login-box .login-error.show { display: block; }
 
-  /* HEADER */
   .header { background: #161b22; color: #e6edf3; padding: 12px 22px; border-radius: 12px; margin-bottom: 0; border: 1px solid #30363d; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
   .header-row1 { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 15px; min-height: 48px; }
   .header-left { display: flex; align-items: center; flex-shrink: 0; }
@@ -44,13 +42,13 @@
   .header-stats .stat-chip .stat-label { opacity: 0.7; font-weight: 400; font-size: 11px; color: #8b949e; }
   .header-stats .stat-chip .stat-value { font-weight: 700; font-size: 14px; color: #58a6ff; }
   .header-stats .stat-divider { color: #30363d; font-size: 14px; font-weight: 100; }
+
   .header-user { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05); padding: 4px 12px 4px 16px; border-radius: 30px; flex-shrink: 0; border: 1px solid #30363d; }
   .header-user .user-name { font-size: 13px; font-weight: 500; color: #e6edf3; }
   .header-user .user-role { font-size: 10px; opacity: 0.6; color: #8b949e; }
   .header-user .logout-header-btn { background: rgba(255,255,255,0.06); border: none; color: #8b949e; padding: 3px 12px; border-radius: 20px; font-size: 11px; cursor: pointer; transition: all 0.2s; }
   .header-user .logout-header-btn:hover { background: rgba(255,255,255,0.12); color: #e6edf3; }
 
-  /* TABS */
   .tabs-container { background: #161b22; border-radius: 10px 10px 0 0; border: 1px solid #30363d; border-bottom: none; overflow: hidden; margin-top: 0; }
   .tabs { display: flex; border-bottom: 2px solid #30363d; background: #0d1117; flex-wrap: wrap; }
   .tab-btn { padding: 12px 28px; border: none; background: transparent; font-size: 14px; font-weight: 600; color: #8b949e; cursor: pointer; transition: all 0.3s; position: relative; border-bottom: 3px solid transparent; }
@@ -60,7 +58,6 @@
   .tab-content { display: none; padding: 20px; background: #161b22; border: 1px solid #30363d; border-top: none; border-radius: 0 0 10px 10px; }
   .tab-content.active { display: block; }
 
-  /* FILTERS */
   .filters-section { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 10px 16px; background: #0d1117; border-radius: 10px; border: 1px solid #30363d; margin-bottom: 16px; position: relative; }
   .filter-group { display: flex; align-items: center; gap: 3px; flex-wrap: wrap; }
   .filter-group label { font-weight: 600; font-size: 10px; color: #8b949e; margin: 0; white-space: nowrap; }
@@ -70,11 +67,9 @@
   .filter-group select[disabled] { background: #161b22; color: #58a6ff; opacity: 1; cursor: default; font-weight: 600; }
   .filter-group .gear-btn { background: rgba(88, 166, 255, 0.12); border: 1px solid #30363d; color: #58a6ff; width: 26px; height: 28px; border-radius: 4px; cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center; }
   .filter-group .gear-btn:hover { background: rgba(88, 166, 255, 0.25); }
-  .filter-divider { color: #30363d; font-size: 14px; font-weight: 100; padding: 0 2px; }
   .fab-container { display: flex; align-items: center; gap: 10px; margin-left: auto; }
   .fab-btn { width: 38px; height: 38px; border-radius: 50%; background: #238636; color: white; border: none; font-size: 20px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(35, 134, 54, 0.4); }
-  .fab-btn:hover { background: #2ea043; transform: scale(1.1) rotate(90deg); box-shadow: 0 6px 25px rgba(35, 134, 54, 0.6); }
-  .fab-btn:active { transform: scale(0.95); }
+  .fab-btn:hover { background: #2ea043; transform: scale(1.1) rotate(90deg); }
 
   .stats-bar { background: #0d1117; border-radius: 10px; border: 1px solid #30363d; margin-bottom: 16px; overflow: hidden; }
   .stats-bar .stats-row { display: flex; flex-wrap: wrap; align-items: center; padding: 8px 18px; gap: 6px 16px; }
@@ -83,7 +78,6 @@
   .stats-bar .stat-item strong { color: #58a6ff; font-size: 15px; }
   .stats-bar .stat-divider { color: #30363d; font-size: 16px; font-weight: 100; }
 
-  /* ADS GRID */
   .ads-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 16px; padding: 0; }
   .ad-card { background: #161b22; border-radius: 10px; overflow: hidden; transition: all 0.3s ease; border: 1px solid #30363d; display: flex; flex-direction: column; border-left-width: 5px; }
   .ad-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.6); transform: translateY(-3px); border-color: #58a6ff; }
@@ -93,25 +87,22 @@
   .card-header .desk-badge { font-size: 9px; padding: 2px 8px; border-radius: 20px; font-weight: 600; background: #1a3a6b; color: white; }
   .card-header .icd-badge { font-size: 9px; padding: 2px 8px; border-radius: 20px; font-weight: 600; background: #c79306; color: white; }
   .card-header .region-badge { font-size: 9px; padding: 2px 8px; border-radius: 20px; font-weight: 600; background: #6f42c1; color: white; }
-
   .card-body { padding: 8px 14px 10px; flex: 1; }
   .card-body .row { display: flex; flex-wrap: wrap; margin-bottom: 1px; line-height: 1.4; }
   .card-body .row .col { display: flex; align-items: baseline; flex: 1; min-width: 45%; padding: 1px 4px 1px 0; }
-  .card-body .label { font-size: 9.5pt; font-weight: 600; color: #8b949e; min-width: 60px; flex-shrink: 0; text-align: left; }
-  .card-body .value { font-size: 9.2pt; color: #e6edf3; word-break: break-word; text-align: left; }
+  .card-body .label { font-size: 9.5pt; font-weight: 600; color: #8b949e; min-width: 60px; flex-shrink: 0; }
+  .card-body .value { font-size: 9.2pt; color: #e6edf3; word-break: break-word; }
   .card-body .value.highlight { color: #58a6ff; font-weight: 600; }
-
   .card-actions { padding: 8px 14px 10px; border-top: 1px solid #30363d; display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; background: #0d1117; }
-  .card-actions .btn-action { padding: 4px 16px; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+  .card-actions .btn-action { padding: 4px 16px; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
   .card-actions .btn-edit { background: #238636; color: white; }
-  .card-actions .btn-edit:hover { background: #2ea043; transform: scale(1.02); }
+  .card-actions .btn-edit:hover { background: #2ea043; }
 
   .no-results { text-align: center; padding: 40px 20px; color: #8b949e; background: #161b22; border-radius: 12px; grid-column: 1 / -1; border: 1px solid #30363d; }
   .no-results i { font-size: 36px; opacity: 0.3; display: block; margin-bottom: 12px; }
   .loading-spinner { text-align: center; padding: 50px 20px; color: #8b949e; grid-column: 1 / -1; }
   .loading-spinner i { font-size: 28px; margin-bottom: 10px; display: block; color: #58a6ff; }
 
-  /* MODAL */
   .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
   .modal-overlay.show { display: flex; }
   .modal-overlay .modal-box { background: #161b22; border-radius: 12px; max-width: 1100px; width: 95%; max-height: 92vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.8); animation: modalSlideIn 0.3s ease; border: 1px solid #30363d; }
@@ -127,18 +118,17 @@
   .modal-overlay .modal-footer .btn-cancel { background: #21262d; color: #8b949e; }
   .modal-overlay .modal-footer .btn-cancel:hover { background: #30363d; color: #e6edf3; }
   .modal-overlay .modal-footer .btn-save { background: #238636; color: white; }
-  .modal-overlay .modal-footer .btn-save:hover { background: #2ea043; transform: translateY(-1px); }
-  .modal-overlay .modal-footer .btn-save:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .modal-overlay .modal-footer .btn-save:hover { background: #2ea043; }
+  .modal-overlay .modal-footer .btn-save:disabled { opacity: 0.6; cursor: not-allowed; }
 
-  .modal-overlay input, .modal-overlay select, .modal-overlay textarea { background: #0d1117 !important; color: #e6edf3 !important; border: 1px solid #30363d !important; border-radius: 6px !important; padding: 8px 12px !important; font-size: 13px !important; font-family: inherit !important; box-shadow: none !important; width: 100% !important; height: auto !important; }
+  .modal-overlay input, .modal-overlay select { background: #0d1117 !important; color: #e6edf3 !important; border: 1px solid #30363d !important; border-radius: 6px !important; padding: 8px 12px !important; font-size: 13px !important; width: 100% !important; height: auto !important; }
   .modal-overlay input:focus, .modal-overlay select:focus { border-color: #58a6ff !important; box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15) !important; outline: none !important; }
   .modal-overlay input:disabled, .modal-overlay select:disabled { background: #161b22 !important; color: #484f58 !important; cursor: not-allowed !important; opacity: 0.7 !important; }
   .modal-overlay .calculated-field { background: #161b22 !important; color: #58a6ff !important; font-weight: 600 !important; }
 
-  .flatpickr-calendar { background: #161b22 !important; border: 1px solid #30363d !important; box-shadow: 0 8px 30px rgba(0,0,0,0.8) !important; }
-  .flatpickr-calendar .flatpickr-months { background: #0d1117 !important; border-bottom: 1px solid #30363d !important; }
+  .flatpickr-calendar { background: #161b22 !important; border: 1px solid #30363d !important; }
+  .flatpickr-calendar .flatpickr-months { background: #0d1117 !important; }
   .flatpickr-calendar .flatpickr-months .flatpickr-month { color: #e6edf3 !important; }
-  .flatpickr-calendar .flatpickr-months .flatpickr-prev-month, .flatpickr-calendar .flatpickr-months .flatpickr-next-month { color: #8b949e !important; }
   .flatpickr-calendar .flatpickr-weekday { color: #8b949e !important; }
   .flatpickr-calendar .flatpickr-day { color: #e6edf3 !important; border-color: #30363d !important; }
   .flatpickr-calendar .flatpickr-day:hover { background: #30363d !important; border-color: #58a6ff !important; }
@@ -147,269 +137,75 @@
 
   .ad-edit-form { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px 20px; }
   .ad-edit-form .form-group { display: flex; flex-direction: column; gap: 4px; }
-  .ad-edit-form .form-group label { font-size: 12px; font-weight: 500; color: #8b949e; letter-spacing: 0.3px; }
+  .ad-edit-form .form-group label { font-size: 12px; font-weight: 500; color: #8b949e; }
   .ad-edit-form .form-group label .required-star { color: #f85149; margin-left: 2px; }
   .ad-edit-form .form-group .field-hint { font-size: 10px; color: #484f58; margin-top: 2px; font-style: italic; }
   .ad-edit-form .form-group .field-hint i { margin-right: 4px; color: #8b949e; }
 
-  /* ============================================================
-     STATISTICS — New Layout
-     ============================================================ */
-  .stat-combined-card {
-    background: #161b22;
-    border-radius: 10px;
-    border: 1px solid #30363d;
-    margin-bottom: 20px;
-    overflow: hidden;
-  }
-  .stat-combined-card .stat-combined-header {
-    padding: 12px 16px;
-    border-bottom: 1px solid #30363d;
-    background: #0d1117;
-    font-weight: 600;
-    font-size: 14px;
-    color: #58a6ff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
+  /* Statistics */
+  .stat-combined-card { background: #161b22; border-radius: 10px; border: 1px solid #30363d; margin-bottom: 20px; overflow: hidden; }
+  .stat-combined-card .stat-combined-header { padding: 12px 16px; border-bottom: 1px solid #30363d; background: #0d1117; font-weight: 600; font-size: 14px; color: #58a6ff; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
   .stat-combined-card .stat-combined-header i { margin-right: 8px; }
-  .stat-combined-card .stat-combined-body {
-    padding: 16px;
-    position: relative;
-  }
-  .stat-combined-card .stat-combined-body canvas {
-    width: 100% !important;
-    max-height: 250px;
-  }
-  .stat-combined-card .stat-combined-footer {
-    padding: 10px 16px;
-    border-top: 1px solid #30363d;
-    background: #0d1117;
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    color: #8b949e;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
+  .stat-combined-card .stat-combined-body { padding: 16px; }
+  .stat-combined-card .stat-combined-body canvas { width: 100% !important; max-height: 250px; }
+  .stat-combined-card .stat-combined-footer { padding: 10px 16px; border-top: 1px solid #30363d; background: #0d1117; display: flex; justify-content: space-between; font-size: 12px; color: #8b949e; flex-wrap: wrap; gap: 8px; }
   .stat-combined-card .stat-combined-footer strong { color: #58a6ff; }
 
-  /* Region grid */
-  .region-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 20px;
-  }
+  .region-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
   .region-grid.single { grid-template-columns: 1fr; }
   .region-grid.two { grid-template-columns: 1fr 1fr; }
   .region-grid.three { grid-template-columns: 1fr 1fr 1fr; }
-
   @media (max-width: 1200px) {
     .region-grid { grid-template-columns: 1fr 1fr; }
     .region-grid.single { grid-template-columns: 1fr; }
     .region-grid.three { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 768px) {
-    .region-grid,
-    .region-grid.two,
-    .region-grid.three { grid-template-columns: 1fr; }
+    .region-grid, .region-grid.two, .region-grid.three { grid-template-columns: 1fr; }
   }
 
-  /* Region card */
-  .region-card {
-    background: #161b22;
-    border-radius: 10px;
-    border: 1px solid #30363d;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-  .region-card .region-card-header {
-    padding: 10px 14px;
-    border-bottom: 1px solid #30363d;
-    background: #0d1117;
-    font-weight: 600;
-    font-size: 13px;
-    color: #58a6ff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .region-card .region-card-header .region-name {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
+  .region-card { background: #161b22; border-radius: 10px; border: 1px solid #30363d; overflow: hidden; display: flex; flex-direction: column; }
+  .region-card .region-card-header { padding: 10px 14px; border-bottom: 1px solid #30363d; background: #0d1117; font-weight: 600; font-size: 13px; color: #58a6ff; display: flex; justify-content: space-between; align-items: center; }
+  .region-card .region-card-header .region-name { display: flex; align-items: center; gap: 6px; }
   .region-card .region-card-header .region-name i { color: #8b949e; }
-  .region-card .region-card-header .region-rev {
-    color: #3fb950;
-    font-size: 12px;
-    font-weight: 700;
-  }
-  .region-card .region-chart-body {
-    padding: 10px 12px 6px;
-    position: relative;
-  }
-  .region-card .region-chart-body canvas {
-    width: 100% !important;
-    max-height: 160px;
-  }
-  .region-card .region-chart-empty {
-    text-align: center;
-    padding: 30px 10px;
-    color: #484f58;
-    font-size: 11px;
-  }
-  .region-card .region-chart-empty i {
-    font-size: 22px;
-    opacity: 0.4;
-    display: block;
-    margin-bottom: 6px;
-  }
-  .region-card .region-chart-footer {
-    padding: 4px 12px 10px;
-    font-size: 11px;
-    color: #8b949e;
-    display: flex;
-    justify-content: space-between;
-  }
+  .region-card .region-card-header .region-rev { color: #3fb950; font-size: 12px; font-weight: 700; }
+  .region-card .region-chart-body { padding: 10px 12px 6px; }
+  .region-card .region-chart-body canvas { width: 100% !important; max-height: 160px; }
+  .region-card .region-chart-empty { text-align: center; padding: 30px 10px; color: #484f58; font-size: 11px; }
+  .region-card .region-chart-empty i { font-size: 22px; opacity: 0.4; display: block; margin-bottom: 6px; }
+  .region-card .region-chart-footer { padding: 4px 12px 10px; font-size: 11px; color: #8b949e; display: flex; justify-content: space-between; }
   .region-card .region-chart-footer strong { color: #58a6ff; }
 
-  /* Expandable sections */
   .expandable { border-top: 1px solid #30363d; }
-  .expandable .expandable-header {
-    padding: 8px 14px;
-    cursor: pointer;
-    user-select: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #0d1117;
-    transition: background 0.15s;
-  }
+  .expandable .expandable-header { padding: 8px 14px; cursor: pointer; user-select: none; display: flex; justify-content: space-between; align-items: center; background: #0d1117; }
   .expandable .expandable-header:hover { background: rgba(88, 166, 255, 0.06); }
-  .expandable .expandable-header .expandable-title {
-    font-size: 11px;
-    font-weight: 600;
-    color: #8b949e;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .expandable .expandable-header .expandable-title i.chevron {
-    font-size: 9px;
-    transition: transform 0.25s ease;
-    color: #58a6ff;
-  }
-  .expandable.open .expandable-header .expandable-title i.chevron {
-    transform: rotate(90deg);
-  }
-  .expandable .expandable-header .expandable-count {
-    font-size: 10px;
-    color: #58a6ff;
-    font-weight: 600;
-    background: rgba(88, 166, 255, 0.1);
-    padding: 1px 8px;
-    border-radius: 10px;
-  }
-  .expandable .expandable-body {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-    background: #161b22;
-  }
-  .expandable.open .expandable-body {
-    max-height: 320px;
-    overflow-y: auto;
-  }
+  .expandable .expandable-header .expandable-title { font-size: 11px; font-weight: 600; color: #8b949e; display: flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .expandable .expandable-header .expandable-title i.chevron { font-size: 9px; transition: transform 0.25s ease; color: #58a6ff; }
+  .expandable.open .expandable-header .expandable-title i.chevron { transform: rotate(90deg); }
+  .expandable .expandable-header .expandable-count { font-size: 10px; color: #58a6ff; font-weight: 600; background: rgba(88, 166, 255, 0.1); padding: 1px 8px; border-radius: 10px; }
+  .expandable .expandable-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background: #161b22; }
+  .expandable.open .expandable-body { max-height: 320px; overflow-y: auto; }
   .expandable .expandable-body-inner { padding: 6px 10px 10px; }
 
-  /* Mini bar rows */
-  .mini-row {
-    display: flex;
-    align-items: center;
-    padding: 4px 0;
-    gap: 6px;
-    border-bottom: 1px solid rgba(255,255,255,0.03);
-  }
+  .mini-row { display: flex; align-items: center; padding: 4px 0; gap: 6px; border-bottom: 1px solid rgba(255,255,255,0.03); }
   .mini-row:last-child { border-bottom: none; }
-  .mini-row .mini-rank {
-    font-size: 10px;
-    color: #8b949e;
-    min-width: 18px;
-    font-weight: 600;
-    text-align: right;
-  }
-  .mini-row .mini-name {
-    font-size: 11px;
-    color: #e6edf3;
-    flex: 1;
-    min-width: 60px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .mini-row .mini-amount {
-    font-size: 11px;
-    color: #58a6ff;
-    font-weight: 600;
-    min-width: 62px;
-    text-align: right;
-  }
-  .mini-row .mini-bar-container {
-    flex: 1;
-    min-width: 30px;
-    max-width: 70px;
-    height: 6px;
-    background: #0d1117;
-    border-radius: 3px;
-    overflow: hidden;
-  }
-  .mini-row .mini-bar {
-    height: 100%;
-    border-radius: 3px;
-    transition: width 0.6s ease;
-  }
-  .mini-row .mini-percent {
-    font-size: 10px;
-    color: #8b949e;
-    min-width: 32px;
-    text-align: right;
-  }
+  .mini-row .mini-rank { font-size: 10px; color: #8b949e; min-width: 18px; font-weight: 600; text-align: right; }
+  .mini-row .mini-name { font-size: 11px; color: #e6edf3; flex: 1; min-width: 60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .mini-row .mini-amount { font-size: 11px; color: #58a6ff; font-weight: 600; min-width: 62px; text-align: right; }
+  .mini-row .mini-bar-container { flex: 1; min-width: 30px; max-width: 70px; height: 6px; background: #0d1117; border-radius: 3px; overflow: hidden; }
+  .mini-row .mini-bar { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+  .mini-row .mini-percent { font-size: 10px; color: #8b949e; min-width: 32px; text-align: right; }
   .mini-row.inactive { opacity: 0.5; }
-  .mini-row.inactive .mini-name,
-  .mini-row.inactive .mini-amount,
-  .mini-row.inactive .mini-percent { color: #484f58; }
-  .mini-empty {
-    text-align: center;
-    padding: 14px;
-    color: #484f58;
-    font-size: 11px;
-  }
-  .mini-inactive-note {
-    margin-top: 6px;
-    padding: 4px 8px;
-    background: rgba(248, 81, 73, 0.08);
-    border-left: 2px solid #f85149;
-    border-radius: 3px;
-    font-size: 10px;
-    color: #f85149;
-  }
+  .mini-row.inactive .mini-name, .mini-row.inactive .mini-amount, .mini-row.inactive .mini-percent { color: #484f58; }
+  .mini-empty { text-align: center; padding: 14px; color: #484f58; font-size: 11px; }
+  .mini-inactive-note { margin-top: 6px; padding: 4px 8px; background: rgba(248, 81, 73, 0.08); border-left: 2px solid #f85149; border-radius: 3px; font-size: 10px; color: #f85149; }
 
-  /* Toast */
   .toast { position: fixed; top: 20px; right: 20px; padding: 12px 20px; border-radius: 8px; color: white; font-size: 14px; font-weight: 500; z-index: 99999; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transform: translateX(120%); transition: transform 0.4s ease; max-width: 400px; }
   .toast.show { transform: translateX(0); }
   .toast.success { background: #238636; }
   .toast.error { background: #c62828; }
   .toast.info { background: #1a3a6b; }
 
-  /* Management modal table */
   .manage-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
   .manage-table th { text-align: left; font-size: 12px; color: #8b949e; padding: 8px 10px; border-bottom: 1px solid #30363d; font-weight: 600; }
   .manage-table td { padding: 8px 10px; font-size: 13px; color: #e6edf3; border-bottom: 1px solid rgba(255,255,255,0.04); }
@@ -423,15 +219,22 @@
   .manage-add-row .btn-add:hover { background: #2ea043; }
   .manage-add-row.cols-2 { grid-template-columns: 1fr 1fr auto; }
 
-  /* RESPONSIVE */
+  /* Edit List modal table */
+  .icd-edit-table { width: 100%; border-collapse: collapse; }
+  .icd-edit-table th { text-align: left; font-size: 11px; color: #8b949e; padding: 8px 10px; border-bottom: 1px solid #30363d; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; background: #0d1117; position: sticky; top: 0; z-index: 1; }
+  .icd-edit-table td { padding: 6px 8px; font-size: 12px; color: #e6edf3; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; }
+  .icd-edit-table tr:hover td { background: rgba(88, 166, 255, 0.04); }
+  .icd-edit-table .ro-cell { color: #8b949e; font-size: 12px; }
+  .icd-edit-table input, .icd-edit-table select { background: #0d1117 !important; color: #e6edf3 !important; border: 1px solid #30363d !important; border-radius: 4px !important; padding: 5px 8px !important; font-size: 12px !important; width: 100% !important; }
+  .icd-edit-table input:focus, .icd-edit-table select:focus { border-color: #58a6ff !important; box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.15) !important; outline: none !important; }
+  .icd-edit-table-wrap { max-height: 60vh; overflow-y: auto; border: 1px solid #30363d; border-radius: 8px; }
+
   @media (max-width: 1200px) {
     .ad-edit-form { grid-template-columns: 1fr 1fr; }
-    .graph-container { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 992px) {
     .filters-section { gap: 4px 8px; padding: 8px 12px; }
     .filter-group select { min-width: 60px; max-width: 100px; font-size: 10px; }
-    .filter-group label { font-size: 9px; }
     .modal-overlay .modal-box { width: 98%; max-width: 98%; }
     .ad-edit-form { gap: 10px 16px; }
     .modal-overlay .modal-body { padding: 18px 20px; }
@@ -455,10 +258,34 @@
     .ad-edit-form { grid-template-columns: 1fr; gap: 10px; }
     .modal-overlay .modal-body { padding: 14px 16px; }
     .modal-overlay .modal-header { padding: 12px 16px; }
-    .modal-overlay .modal-header h4 { font-size: 16px; }
-    .mini-row .mini-bar-container { min-width: 20px; max-width: 40px; }
     .manage-add-row { grid-template-columns: 1fr; }
     .manage-add-row.cols-2 { grid-template-columns: 1fr; }
+    .header-user { flex-direction: column; align-items: flex-end; padding: 6px 10px; }
+  }
+  
+    .edit-list-inline-btn {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #1a3a6b 0%, #58a6ff 100%);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 12px rgba(88, 166, 255, 0.35);
+    height: 38px;
+  }
+  .edit-list-inline-btn:hover {
+    background: linear-gradient(135deg, #58a6ff 0%, #1a3a6b 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(88, 166, 255, 0.55);
+  }
+  .edit-list-inline-btn:active {
+    transform: translateY(0);
   }
 </style>
 </head>
@@ -532,6 +359,23 @@
   </div>
 </div>
 
+<!-- EDIT LIST MODAL (ICD role only) -->
+<div class="modal-overlay" id="editListModal">
+  <div class="modal-box" style="max-width: 1200px;">
+    <div class="modal-header">
+      <h4 id="editListModalTitle"><i class="fa fa-list-alt"></i> Edit List</h4>
+      <button class="close-btn" onclick="closeEditListModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="editListModalBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel" onclick="closeEditListModal()">Close</button>
+      <button class="btn btn-save" id="saveListBtn" onclick="saveEditList()">
+        <i class="fa fa-save"></i> Save All
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- MANAGE EXECUTIVES MODAL -->
 <div class="modal-overlay" id="manageExecModal">
   <div class="modal-box" style="max-width: 700px;">
@@ -565,12 +409,11 @@
 // ============================================================
 // CONFIG
 // ============================================================
-const API_BASE_URL = 'https://script.google.com/macros/s/AKfycbw2fk2ZkVbQXWuPtDGSVUlRXs23TVsr4dDHh95oI3_Q5tFYAbw11p2S6Xy-8S6wk7rA/exec';
+const API_BASE_URL = 'https://script.google.com/macros/s/AKfycbxrEHF2zu0VkVysX2H76tmOMX2D6JcC26iVx_iFBDdF__8kz0UB5_hyEBgDcGns9WX1/exec';
 
 const REGIONS = ['Sangli', 'Satara', 'Kolhapur', 'Kokan'];
 const REGION_ORDER = ['Kolhapur', 'Sangli', 'Satara', 'Kokan'];
 const DESK_OPTIONS = ['City', 'Gram'];
-const ICD_USER_OPTIONS = ['VPY','VNH','AVT','VMD','LJT','MSV','SHP','SRO','SDN','KUM','SSW','SPN','UAB'];
 
 const FILTER_MAP = {
   filterDesk: 'Desk',
@@ -601,6 +444,7 @@ let isAddMode = false;
 let currentEditRegion = '';
 let datePickerInstance = null;
 let chartInstances = {};
+let headerStatsCache = null;
 
 // ============================================================
 // API CALL
@@ -763,6 +607,7 @@ async function handleLogin() {
 
       buildTabs();
       await loadInitialData();
+      await updateGlobalHeaderStats();
     } else {
       errEl.textContent = result.message || 'Invalid credentials.';
       errEl.classList.add('show');
@@ -775,7 +620,6 @@ async function handleLogin() {
     btn.disabled = false;
     btn.innerHTML = '<i class="fa fa-sign-in"></i> Sign In';
   }
-  await updateGlobalHeaderStats();
 }
 
 function logout() {
@@ -785,6 +629,7 @@ function logout() {
   regionData = {};
   statisticsData = null;
   currentTab = '';
+  headerStatsCache = null;
   document.getElementById('mainContent').style.display = 'none';
   document.getElementById('loginOverlay').style.display = 'flex';
   document.getElementById('loginUsername').value = '';
@@ -816,7 +661,6 @@ function buildTabs() {
   container.innerHTML = '';
   tabContent.innerHTML = '';
 
-  // Region tabs
   const orderedRegions = REGION_ORDER.filter(function(r) { return accessibleRegions.indexOf(r) !== -1; });
   if (canEditAds()) {
     orderedRegions.forEach(function(region) {
@@ -835,7 +679,6 @@ function buildTabs() {
     });
   }
 
-  // Statistics tab
   if (STATISTICS_ROLES.indexOf(loggedInUser.role) !== -1) {
     const btn = document.createElement('button');
     btn.className = 'tab-btn';
@@ -897,9 +740,15 @@ function buildTabContentHTML(region) {
         <label>ICD-Remark</label>
         <select id="filterICDRemark-${region}" onchange="applyFilters('${region}')"><option value="__ALL__">All</option></select>
       </div>
-      ${canEditAds() ? `
+        ${canEditAds() && !isICD() ? `
       <div class="fab-container">
         <button class="fab-btn" onclick="openAddModal('${region}')" title="Add New Advertisement"><i class="fa fa-plus"></i></button>
+      </div>` : ''}
+      ${isICD() ? `
+      <div class="fab-container">
+        <button class="edit-list-inline-btn" onclick="openEditListModal()" title="Edit List (Bulk ICD Assignment)">
+          <i class="fa fa-list-alt"></i> Edit List
+        </button>
       </div>` : ''}
     </div>
     <div class="stats-bar" id="statsBar-${region}">
@@ -934,7 +783,6 @@ async function switchTab(tabName) {
 
   if (tabName === 'statistics') {
     await loadStatistics();
-    // Refresh header chips so they stay in sync after any data change
     headerStatsCache = null;
     if (!isICD()) await updateGlobalHeaderStats();
   } else {
@@ -943,8 +791,6 @@ async function switchTab(tabName) {
     } else {
       applyFilters(tabName);
     }
-    // Also refresh header when landing on a data tab
-    // (in case data changed while user was elsewhere)
     if (!isICD()) await updateGlobalHeaderStats();
   }
 }
@@ -959,7 +805,6 @@ async function loadInitialData() {
   } else if (STATISTICS_ROLES.indexOf(loggedInUser.role) !== -1) {
     await loadStatistics();
   }
-  updateGlobalHeaderStats();
 }
 
 async function loadRegion(region) {
@@ -973,6 +818,7 @@ async function loadRegion(region) {
         filters: result.filters || {},
         agencies: result.agencies || [],
         executives: result.executives || [],
+        icdUsers: result.icdUsers || [],
         loaded: true
       };
       populateRegionFilters(region);
@@ -997,14 +843,14 @@ function showErrorInGrid(region, msg) {
 }
 
 // ============================================================
-// POPULATE FILTERS
+// POPULATE FILTERS — Agency / Executive / ICD from master lists
 // ============================================================
 function populateRegionFilters(region) {
   const d = regionData[region];
   if (!d) return;
 
   Object.keys(FILTER_MAP).forEach(function(filterId) {
-    if (filterId === 'filterAgency') return;
+    if (filterId === 'filterAgency' || filterId === 'filterExecutive' || filterId === 'filterICDUser') return;
     const col = FILTER_MAP[filterId];
     const sel = document.getElementById(filterId + '-' + region);
     if (!sel) return;
@@ -1021,10 +867,28 @@ function populateRegionFilters(region) {
   const agencySel = document.getElementById('filterAgency-' + region);
   if (agencySel) {
     let html = '<option value="__ALL__">All</option>';
-    d.agencies.forEach(function(a) {
+    (d.agencies || []).forEach(function(a) {
       html += '<option value="' + escapeHtml(a) + '">' + escapeHtml(a) + '</option>';
     });
     agencySel.innerHTML = html;
+  }
+
+  const execSel = document.getElementById('filterExecutive-' + region);
+  if (execSel) {
+    let html = '<option value="__ALL__">All</option>';
+    (d.executives || []).forEach(function(e) {
+      html += '<option value="' + escapeHtml(e.Name) + '">' + escapeHtml(e.Name) + '</option>';
+    });
+    execSel.innerHTML = html;
+  }
+
+  const icdSel = document.getElementById('filterICDUser-' + region);
+  if (icdSel) {
+    let html = '<option value="__ALL__">All</option>';
+    (d.icdUsers || []).forEach(function(u) {
+      html += '<option value="' + escapeHtml(u) + '">' + escapeHtml(u) + '</option>';
+    });
+    icdSel.innerHTML = html;
   }
 }
 
@@ -1190,7 +1054,7 @@ function openAddModal(region) {
     'Size-Width': '', 'Size-Height': '', SQCM: '0',
     Total_with_GST: '', Net_Amount: '', GST: '0', Rate: '0',
     'To-DTP': getTodayFormatted(), File: '',
-    'ICD-User': isICD() ? loggedInUser.username : '', 'ICD-Remark': ''
+    'ICD-User': '', 'ICD-Remark': ''
   };
   renderEditForm(emptyAd, region);
 }
@@ -1233,12 +1097,13 @@ function renderEditForm(ad, region) {
 
   if (datePickerInstance) { datePickerInstance.destroy(); datePickerInstance = null; }
 
-  const d = regionData[region] || { executives: [], agencies: [] };
+  const d = regionData[region] || { executives: [], agencies: [], icdUsers: [] };
   const icdView = isICD();
   const readOnlyStyle = 'background:#161b22 !important;color:#8b949e !important;cursor:not-allowed !important;opacity:0.7 !important;';
 
   const execOptions = d.executives || [];
   const agencyOptions = d.agencies || [];
+  const icdOptions = d.icdUsers || [];
 
   function execOptionsHTML(selected) {
     let h = '<option value="">— Select —</option>';
@@ -1254,6 +1119,14 @@ function renderEditForm(ad, region) {
       h += `<option value="${escapeHtml(a)}" ${a === selected ? 'selected' : ''}>${escapeHtml(a)}</option>`;
     });
     if (canManageAgency()) h += '<option value="__ADD_NEW__" style="color:#58a6ff;font-weight:bold;">+ Add New Agency/Reporter</option>';
+    return h;
+  }
+
+  function icdOptionsHTML(selected) {
+    let h = '<option value="">— Select —</option>';
+    icdOptions.forEach(function(u) {
+      h += `<option value="${escapeHtml(u)}" ${u === selected ? 'selected' : ''}>${escapeHtml(u)}</option>`;
+    });
     return h;
   }
 
@@ -1304,11 +1177,7 @@ function renderEditForm(ad, region) {
   html += '<input type="text" id="edit_File" value="' + escapeHtml(ad.File || '') + '" ' + (ro('File') ? 'disabled style="' + readOnlyStyle + '"' : '') + '></div>';
 
   html += '<div class="form-group"><label>ICD-User</label>';
-  html += '<select id="edit_ICD-User" ' + (ro('ICD-User') ? 'disabled' : '') + '><option value="">— Select —</option>';
-  ICD_USER_OPTIONS.forEach(function(u) {
-    html += '<option value="' + u + '" ' + (u === ad['ICD-User'] ? 'selected' : '') + '>' + u + '</option>';
-  });
-  html += '</select></div>';
+  html += '<select id="edit_ICD-User" ' + (ro('ICD-User') ? 'disabled' : '') + '>' + icdOptionsHTML(ad['ICD-User']) + '</select></div>';
 
   html += '<div class="form-group"><label>ICD-Remark</label>';
   html += '<input type="text" id="edit_ICD-Remark" value="' + escapeHtml(ad['ICD-Remark'] || '') + '" ' + (ro('ICD-Remark') ? 'disabled style="' + readOnlyStyle + '"' : '') + '></div>';
@@ -1453,8 +1322,8 @@ async function saveAdData() {
       delete regionData[region];
       await loadRegion(region);
       closeEditModal();
-	  headerStatsCache = null;
-	  await updateGlobalHeaderStats();
+      headerStatsCache = null;
+      await updateGlobalHeaderStats();
     } else {
       showToast(result.error || 'Save failed.', 'error');
     }
@@ -1469,6 +1338,168 @@ async function saveAdData() {
 function closeEditModal() {
   if (datePickerInstance) { datePickerInstance.destroy(); datePickerInstance = null; }
   document.getElementById('editAdModal').classList.remove('show');
+}
+
+// ============================================================
+// EDIT LIST MODAL (ICD role only)
+// ============================================================
+function openEditListModal() {
+  if (!isICD()) {
+    showToast('You do not have permission to use Edit List.', 'error');
+    return;
+  }
+
+  // Must be on a region tab (not statistics)
+  if (!currentTab || currentTab === 'statistics') {
+    showToast('Please open a region tab first (Kolhapur/Sangli/Satara/Kokan).', 'error');
+    return;
+  }
+
+  const region = currentTab;
+
+  if (accessibleRegions.indexOf(region) === -1) {
+    showToast('You do not have access to region: ' + region, 'error');
+    return;
+  }
+
+  if (!regionData[region] || !regionData[region].loaded) {
+    showToast('Region data is still loading. Please wait a moment.', 'info');
+    return;
+  }
+
+  const modal = document.getElementById('editListModal');
+  const title = document.getElementById('editListModalTitle');
+  const body = document.getElementById('editListModalBody');
+
+  title.innerHTML = '<i class="fa fa-list-alt"></i> Edit List — ' + escapeHtml(region);
+
+  // Show modal with a loading placeholder while we render
+  body.innerHTML = '<div class="loading-spinner" style="padding:30px;"><i class="fa fa-spinner fa-spin"></i> Loading rows…</div>';
+  modal.classList.add('show');
+
+  // Render the table
+  renderEditListTable(region);
+}
+
+function closeEditListModal() {
+  document.getElementById('editListModal').classList.remove('show');
+}
+
+function renderEditListTable(region) {
+  const body = document.getElementById('editListModalBody');
+  const d = regionData[region];
+  const icdOptions = d.icdUsers || [];
+
+  // Apply current filters (same as the card grid)
+  const active = {};
+  Object.keys(FILTER_MAP).forEach(function(filterId) {
+    const col = FILTER_MAP[filterId];
+    const sel = document.getElementById(filterId + '-' + region);
+    if (sel && sel.value && sel.value !== '__ALL__') active[col] = sel.value;
+  });
+
+  const filtered = d.ads.filter(function(ad) {
+    for (const k in active) {
+      let adVal = ad[k] || '';
+      if (k === 'To-DTP') adVal = formatDateForDisplay(adVal);
+      if (adVal !== active[k]) return false;
+    }
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    body.innerHTML = '<div class="no-results" style="margin:0;"><i class="fa fa-search"></i>No advertisements found matching the current filters.</div>';
+    return;
+  }
+
+  function icdSelectHTML(selected, rowKey) {
+    let h = '<option value="">— Select —</option>';
+    icdOptions.forEach(function(u) {
+      h += '<option value="' + escapeHtml(u) + '"' + (u === selected ? ' selected' : '') + '>' + escapeHtml(u) + '</option>';
+    });
+    // Include existing value if not in master (so it's not lost)
+    if (selected && icdOptions.indexOf(selected) === -1) {
+      h += '<option value="' + escapeHtml(selected) + '" selected>' + escapeHtml(selected) + ' (not in master)</option>';
+    }
+    return '<select data-row="' + rowKey + '" data-field="ICD-User" class="icd-edit-input">' + h + '</select>';
+  }
+
+  let html = '<div class="icd-edit-table-wrap"><table class="icd-edit-table">';
+  html += '<thead><tr><th style="width:20%;">Executive</th><th style="width:15%;">To-DTP</th><th style="width:20%;">File</th><th style="width:25%;">ICD</th><th style="width:20%;">ICD-Remark</th></tr></thead><tbody>';
+
+  filtered.forEach(function(ad) {
+    const realIndex = d.ads.indexOf(ad);       // 0-based within d.ads
+    const sheetRow = realIndex + 2;            // 1-based sheet row
+
+    html += '<tr>' +
+      '<td class="ro-cell">' + escapeHtml(ad.Executive || '—') + '</td>' +
+      '<td><input type="text" class="icd-edit-input" data-row="' + sheetRow + '" data-field="To-DTP" value="' + escapeHtml(formatDateForDisplay(ad['To-DTP'] || '')) + '" placeholder="dd-mm-yyyy"></td>' +
+      '<td><input type="text" class="icd-edit-input" data-row="' + sheetRow + '" data-field="File" value="' + escapeHtml(ad.File || '') + '"></td>' +
+      '<td>' + icdSelectHTML(ad['ICD-User'] || '', sheetRow) + '</td>' +
+      '<td><input type="text" class="icd-edit-input" data-row="' + sheetRow + '" data-field="ICD-Remark" value="' + escapeHtml(ad['ICD-Remark'] || '') + '"></td>' +
+      '</tr>';
+  });
+
+  html += '</tbody></table></div>';
+  html += '<div style="margin-top:10px;color:#8b949e;font-size:11px;"><i class="fa fa-info-circle"></i> Showing ' + filtered.length + ' ads (matching current filters). Edit any field and click <strong>Save All</strong>.</div>';
+
+  body.innerHTML = html;
+}
+
+async function saveEditList() {
+  if (!isICD()) return;
+  const region = currentTab;
+  if (!region || region === 'statistics') return;
+
+  const btn = document.getElementById('saveListBtn');
+  const inputs = document.querySelectorAll('#editListModalBody .icd-edit-input');
+
+  // Group by row
+  const rowsMap = {};
+  inputs.forEach(function(el) {
+    const rowKey = el.getAttribute('data-row');
+    const field = el.getAttribute('data-field');
+    if (!rowsMap[rowKey]) rowsMap[rowKey] = { rowIndex: parseInt(rowKey, 10) };
+    rowsMap[rowKey][field] = el.value;
+  });
+
+  const updates = Object.keys(rowsMap).map(function(k) {
+    const r = rowsMap[k];
+    // Normalize To-DTP to sheet format
+    if (r['To-DTP'] !== undefined) {
+      r['To-DTP'] = formatDateForSheet(r['To-DTP']);
+    }
+    return r;
+  });
+
+  if (updates.length === 0) {
+    showToast('No rows to save.', 'info');
+    return;
+  }
+
+  btn.disabled = true;
+  const origLabel = btn.innerHTML;
+  btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Saving...';
+
+  try {
+    const result = await callAPI('updateICDBatch', { region: region, updates: updates });
+    if (result.success) {
+      showToast(result.message || ('Saved ' + updates.length + ' rows.'), 'success');
+      // Reload region
+      delete regionData[region];
+      await loadRegion(region);
+      closeEditListModal();
+      headerStatsCache = null;
+      await updateGlobalHeaderStats();
+    } else {
+      showToast(result.error || 'Save failed.', 'error');
+    }
+  } catch (e) {
+    showToast('Error: ' + e.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = origLabel;
+  }
 }
 
 // ============================================================
@@ -1656,16 +1687,13 @@ function renderStatistics() {
   const d = statisticsData;
   if (!d) return;
 
-  // Destroy old charts
   Object.keys(chartInstances).forEach(function(k) {
     if (chartInstances[k]) chartInstances[k].destroy();
   });
   chartInstances = {};
 
-  // ---------- 1. Stats bar ----------
   renderStatsBar(d);
 
-  // ---------- 2. Build graphs section ----------
   const graphSection = document.getElementById('graphSection');
   if (!graphSection) return;
 
@@ -1678,7 +1706,6 @@ function renderStatistics() {
   const showCombined = accessibleRegions.length > 1;
   let html = '';
 
-  // ---------- Combined card ----------
   if (showCombined) {
     let allAds = [];
     regionOrder.forEach(function(r) {
@@ -1691,9 +1718,7 @@ function renderStatistics() {
     if (gdCombined.labels.length === 0) {
       html += `
         <div class="stat-combined-card">
-          <div class="stat-combined-header">
-            <span><i class="fa fa-line-chart"></i> Combined Revenue (Cumulative)</span>
-          </div>
+          <div class="stat-combined-header"><span><i class="fa fa-line-chart"></i> Combined Revenue (Cumulative)</span></div>
           <div class="stat-combined-body" style="text-align:center;padding:40px 20px;color:#8b949e;">
             <i class="fa fa-bar-chart" style="font-size:32px;opacity:0.3;display:block;margin-bottom:12px;"></i>
             No data available
@@ -1722,7 +1747,6 @@ function renderStatistics() {
     }
   }
 
-  // ---------- Region cards ----------
   if (regionOrder.length > 0) {
     let gridClass = 'region-grid';
     if (regionOrder.length === 1) gridClass += ' single';
@@ -1738,9 +1762,7 @@ function renderStatistics() {
 
   graphSection.innerHTML = html;
 
-  // ---------- Render charts ----------
   setTimeout(function() {
-    // Combined chart
     if (showCombined) {
       let allAds = [];
       regionOrder.forEach(function(r) {
@@ -1755,7 +1777,6 @@ function renderStatistics() {
       }
     }
 
-    // Region charts
     regionOrder.forEach(function(region) {
       const r = perRegion[region];
       if (!r) return;
@@ -1803,14 +1824,14 @@ function renderStatsBar(d) {
 function buildRegionCard(region, data) {
   const gd = prepareGraphData(data.ads || []);
   const hasChart = gd.labels.length > 0;
+  const role = loggedInUser ? loggedInUser.role : '';
+  const autoExpand = (role !== 'Admin' && role !== 'Auth-All');
 
-  // Executive rows
   const execEntries = Object.keys(data.executives || {}).map(function(k) {
     return { name: k, data: data.executives[k] };
   });
   execEntries.sort(function(a, b) { return b.data.revenue - a.data.revenue; });
 
-  // Agency rows
   const agencyEntries = Object.keys(data.agencies || {}).map(function(k) {
     return { name: k, data: data.agencies[k] };
   });
@@ -1837,26 +1858,26 @@ function buildRegionCard(region, data) {
         <span>Days: <strong>${gd.labels.length}</strong></span>
       </div>
 
-      <div class="expandable" id="exec-exp-${region}">
+      <div class="expandable${autoExpand ? ' open' : ''}" id="exec-exp-${region}">
         <div class="expandable-header" onclick="toggleExpandable('exec-exp-${region}')">
           <span class="expandable-title"><i class="fa fa-chevron-right chevron"></i> Executives</span>
           <span class="expandable-count">${execEntries.length}</span>
         </div>
         <div class="expandable-body">
           <div class="expandable-body-inner">
-            ${renderMiniBarList(execEntries, totalRev, 'Executive')}
+            ${renderMiniBarList(execEntries, totalRev, 'Executive', true)}
           </div>
         </div>
       </div>
 
-      <div class="expandable" id="agency-exp-${region}">
+      <div class="expandable${autoExpand ? ' open' : ''}" id="agency-exp-${region}">
         <div class="expandable-header" onclick="toggleExpandable('agency-exp-${region}')">
           <span class="expandable-title"><i class="fa fa-chevron-right chevron"></i> Agencies/Reporters</span>
           <span class="expandable-count">${agencyEntries.length}</span>
         </div>
         <div class="expandable-body">
           <div class="expandable-body-inner">
-            ${renderMiniBarList(agencyEntries, totalRev, 'Agency/Reporter')}
+            ${renderMiniBarList(agencyEntries, totalRev, 'Agency/Reporter', false)}
           </div>
         </div>
       </div>
@@ -1864,22 +1885,46 @@ function buildRegionCard(region, data) {
   `;
 }
 
-function renderMiniBarList(entries, totalRevenue, label) {
+function renderMiniBarList(entries, totalRevenue, label, shortenNames) {
   if (!entries || entries.length === 0) {
     return '<div class="mini-empty">No ' + escapeHtml(label) + ' data</div>';
+  }
+
+  const displayNameByFullName = {};
+  if (shortenNames) {
+    const firstNameCounts = {};
+    entries.forEach(function(e) {
+      const parts = String(e.name || '').trim().split(/\s+/);
+      const first = parts[0] || '';
+      firstNameCounts[first] = (firstNameCounts[first] || 0) + 1;
+    });
+    entries.forEach(function(e) {
+      const parts = String(e.name || '').trim().split(/\s+/);
+      const first = parts[0] || '';
+      if (firstNameCounts[first] > 1 && parts.length > 1) {
+        const last = parts[parts.length - 1];
+        displayNameByFullName[e.name] = first + ' ' + last.charAt(0).toUpperCase() + '.';
+      } else {
+        displayNameByFullName[e.name] = first || e.name;
+      }
+    });
+  } else {
+    entries.forEach(function(e) { displayNameByFullName[e.name] = e.name; });
   }
 
   let inactiveCount = 0;
   let html = '';
   entries.forEach(function(e, idx) {
-    const name = e.name, data = e.data;
+    const fullName = e.name;
+    const dispName = displayNameByFullName[fullName] || fullName;
+    const data = e.data;
     const isInactive = data.count === 0;
     if (isInactive) inactiveCount++;
     const pct = totalRevenue > 0 ? (data.revenue / totalRevenue * 100) : 0;
-    const color = getColorFromString(name);
+    const color = getColorFromString(fullName);
     html += '<div class="mini-row' + (isInactive ? ' inactive' : '') + '">' +
       '<span class="mini-rank">' + (idx + 1) + '</span>' +
-      '<span class="mini-name" title="' + escapeHtml(name) + '">' + escapeHtml(name) + '</span>' +
+      '<span class="mini-name" title="' + escapeHtml(fullName) + '">' + escapeHtml(dispName) + '</span>' +
       '<span class="mini-amount">₹' + formatCurrency(data.revenue) + '</span>' +
       '<div class="mini-bar-container"><div class="mini-bar" style="width:' + (isInactive ? 0 : pct) + '%;background:' + (isInactive ? '#30363d' : color) + ';"></div></div>' +
       '<span class="mini-percent">' + pct.toFixed(1) + '%</span>' +
@@ -1968,10 +2013,7 @@ function createLineChart(canvas, gd, color) {
       responsive: true,
       maintainAspectRatio: true,
       plugins: {
-        legend: {
-          display: true,
-          labels: { color: '#8b949e', font: { size: 10 }, boxWidth: 10, padding: 6 }
-        },
+        legend: { display: true, labels: { color: '#8b949e', font: { size: 10 }, boxWidth: 10, padding: 6 } },
         tooltip: {
           callbacks: {
             label: function(ctx) {
@@ -1989,16 +2031,9 @@ function createLineChart(canvas, gd, color) {
         y: {
           beginAtZero: true,
           grid: { color: 'rgba(255,255,255,0.06)', drawBorder: false },
-          ticks: {
-            color: '#8b949e',
-            font: { size: 10 },
-            callback: function(v) { return v >= 1000 ? '₹' + (v/1000) + 'K' : '₹' + v; }
-          }
+          ticks: { color: '#8b949e', font: { size: 10 }, callback: function(v) { return v >= 1000 ? '₹' + (v/1000) + 'K' : '₹' + v; } }
         },
-        x: {
-          grid: { display: false },
-          ticks: { color: '#8b949e', font: { size: 9 }, maxRotation: 45 }
-        }
+        x: { grid: { display: false }, ticks: { color: '#8b949e', font: { size: 9 }, maxRotation: 45 } }
       },
       animation: { duration: 800, easing: 'easeOutQuart' }
     }
@@ -2006,22 +2041,13 @@ function createLineChart(canvas, gd, color) {
 }
 
 // ============================================================
-// HEADER GLOBAL STATS
+// HEADER CHIPS
 // ============================================================
-// ============================================================
-// HEADER GLOBAL STATS — scoped by Access + Role
-// ============================================================
-let headerStatsCache = null;
-
 async function updateGlobalHeaderStats() {
   const el = document.getElementById('headerStats');
   if (!el) return;
 
-  // ICD has no chips
-  if (isICD()) {
-    el.innerHTML = '';
-    return;
-  }
+  if (isICD()) { el.innerHTML = ''; return; }
 
   el.innerHTML = '<span class="stat-chip"><span class="stat-label">Loading stats…</span></span>';
 
@@ -2038,14 +2064,11 @@ async function updateGlobalHeaderStats() {
     const scope = stats.scope || {};
     const role = loggedInUser.role;
 
-    // Build chips — always show Total Ads + Total Revenue.
-    // Then show City/Gram based on role scope, or both for Admin/Auth-All/Advt.
     let chips = '';
     chips += '<span class="stat-chip"><span class="stat-label">📋 Ads</span><span class="stat-value">' + s.totalAds + '</span></span>';
     chips += '<span class="stat-divider">|</span>';
     chips += '<span class="stat-chip"><span class="stat-label">💰 Total</span><span class="stat-value">₹' + formatCurrency(s.totalRevenue) + '</span></span>';
 
-    // Desk chips — only show the ones relevant to the role
     const showCity = (role !== 'Auth-Gram');
     const showGram = (role !== 'Auth-City');
 
@@ -2058,7 +2081,6 @@ async function updateGlobalHeaderStats() {
       chips += '<span class="stat-chip"><span class="stat-label">🌾 Gram</span><span class="stat-value" style="color:#3fb950;">₹' + formatCurrency(s.gramRevenue) + '</span></span>';
     }
 
-    // Region chip: if user has only ONE region, show its name; if multiple, no region chip (region breakdown lives in Statistics tab)
     const regions = (scope.regions || []);
     if (regions.length === 1) {
       chips += '<span class="stat-divider">|</span>';
@@ -2072,19 +2094,22 @@ async function updateGlobalHeaderStats() {
 }
 
 // ============================================================
-// MODAL CLOSE ON ESC / OVERLAY
+// MODAL CLOSE HANDLERS
 // ============================================================
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     closeEditModal();
+    closeEditListModal();
     closeManageExecModal();
     closeManageAgencyModal();
   }
 });
-['editAdModal', 'manageExecModal', 'manageAgencyModal'].forEach(function(id) {
+
+['editAdModal', 'editListModal', 'manageExecModal', 'manageAgencyModal'].forEach(function(id) {
   document.getElementById(id).addEventListener('click', function(e) {
     if (e.target === this) {
       if (id === 'editAdModal') closeEditModal();
+      if (id === 'editListModal') closeEditListModal();
       if (id === 'manageExecModal') closeManageExecModal();
       if (id === 'manageAgencyModal') closeManageAgencyModal();
     }
